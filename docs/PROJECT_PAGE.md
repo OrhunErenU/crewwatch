@@ -17,7 +17,9 @@ broken sensor can look perfectly normal. A heart-rate sensor that freezes keeps 
 number. Every value stays inside its limits, so the standard limit check on the spacecraft says
 nothing. CrewWatch runs on the spacecraft's own computer. Every second it checks whether each sensor's
 value is still moving, whether each sensor is still talking, and whether the readings make sense
-together. Then it tells the astronaut in plain words what to check. It is written in integer-only C,
+together. A visual panel shows each crew member's vital signs over time, a color-coded status, radiation
+exposure and reference trends for bone and sleep, and tells the astronaut in plain words what to check
+first and when to bring in the crew medical officer. It is written in integer-only C,
 built on flight software we wrote earlier, so the same input always gives the same alert on any
 computer. We tested it on real recordings of 15 people and we report where it fails as well as where
 it works.
@@ -50,6 +52,23 @@ CrewWatch shows an alert card, for example:
 
 Every sentence on the card comes from a number the software measured. CrewWatch never says what is
 wrong with the astronaut. It says what to check.
+
+**How it answers the challenge**
+
+The challenge asks for a visual tool that lets astronauts assess their own health and act on it.
+CrewWatch's panel (`web/index.html`, works offline) does this for a crew of four:
+
+- color-coded crew cards (green / amber / red) with heart rate and temperature at a glance;
+- dynamic charts of every indicator over time, with the alert threshold drawn in;
+- an alert card with step-by-step instructions: check the sensor first, then note how you feel and
+  log it for the crew medical officer;
+- a radiation panel (NASA DONKI solar particle events + measured Mars-transit dose rate), and reference
+  panels for bone loss and sleep from published spaceflight studies (not crew data);
+- a "why on board?" box showing the light-time delay to Earth (NASA HRP hazard: distance from Earth).
+
+Our main addition is the question that comes before every health judgement: *is this reading still
+true?* A self-assessment is only as good as the sensor behind it, and far from Earth nobody else will
+catch a broken one.
 
 **How we tested it**
 
@@ -127,15 +146,34 @@ our own software.
   January 2024 to November 2026, shown on the radiation panel.
 - **Mars Science Laboratory / RAD** published dose rates (Zeitlin et al. 2013; Hassler et al. 2014)
   for the radiation baseline.
-- NASA Human Research Program and NTRS documents for the problem framing: EIMO Concept of Operations
+- NASA Human Research Program resources listed for this challenge: "5 Hazards of Human Spaceflight"
+  (https://www.nasa.gov/hrp/hazards/). We address "distance from Earth" (on-board alerts, light-time
+  box) and "space radiation" (DONKI panel). Our bone and sleep reference panels follow two risks
+  listed in "Risks of Human Spaceflight" (https://www.nasa.gov/hrp/risks/): "Risk of Spaceflight-Induced
+  Bone Changes" and "Risk of Inadequate Sleep and Irregular Schedules".
+- NASA HRP / NTRS documents for the problem framing: EIMO Concept of Operations
   (NTRS 20240001402, 20250000009).
 
 ## Space Agency Partner Data and Other References
 
+**Code (all open source, used as-is):**
+- `tinyinfer`: integer inference library, https://github.com/OrhunErenU/tinyinfer (Apache-2.0;
+  written by a team member before the hackathon).
+- `cfs-m2s150`: NASA cFS port and `tlm_watch` app (feature transforms, window mean, ground tools),
+  https://github.com/OrhunErenU/cfs-m2s150 (Apache-2.0; written by a team member before the
+  hackathon). It builds on NASA core Flight System (cFS), https://github.com/nasa/cFS (Apache-2.0).
+- Emscripten 3.1.74 (WebAssembly compiler), https://emscripten.org (MIT / University of Illinois NCSA).
+- Python 3 standard library, numpy (BSD) for reading the dataset files, Node.js for one test script.
+- AI coding assistant: Claude Code (Anthropic); see the Use of SI field.
+
+**Data and literature:**
 - PPG-DaLiA: Reiss, Indlekofer, Schmidt, Van Laerhoven, *Sensors* 19(14):3079, 2019. UCI
   doi:10.24432/C53890, CC BY 4.0. All physiological data.
 - Our own board telemetry dataset: doi:10.5281/zenodo.22045173 (CC BY 4.0).
 - Karjalainen & Viitasalo 1986 (heart rate rise with fever); Barger et al. 2014 (astronaut sleep);
   Lang et al. 2004 (bone loss); van Hees et al. 2013 (activity metric); Zhang, Liu, Kato 2018
   (wearable sensor faults).
+- CSA, "Monitoring Radiation for Astronaut Health" (challenge partner resource), background for the
+  radiation panel.
 - Full list with every number used: `data/SOURCES.md`.
+- No images, music or other copyrighted media are used.
