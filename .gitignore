@@ -7,3 +7,8 @@ __pycache__/
 *.pyc
 # vendor repos are cloned by scripts/fetch_vendor.sh, not committed
 vendor/
+
+# internal, kept local only (removed from the public repo on 14 Nov)
+ROADMAP.md
+ASSETS.md
+.claude/

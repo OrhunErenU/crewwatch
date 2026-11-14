@@ -4,7 +4,7 @@ Space Apps 2026 Project Submission Guide: "Code and data: Must acknowledge SI
 generation in descriptive text and metadata." This file is that text.
 
 - **Idea and design:** the team's (CrewWatch concept, three-detector honest
-  comparison, reuse of the internship flight code). Written in `ROADMAP.md`
+  comparison, reuse of the internship flight code). Written in the team's internal plan
   by the team lead before AI coding started.
 - **Code generated with AI assistance (Claude Code, Anthropic):** everything
   listed under "Built during the hackathon" in `PRIOR_WORK.md`

@@ -1,5 +1,5 @@
 """
-Fault / condition injector. Works ON TOP OF REAL RECORDINGS (ROADMAP §3.1
+Fault / condition injector. Works ON TOP OF REAL RECORDINGS (team decision
 decision): normal behaviour is never generated, only the fault is.
 
 Every parameter is listed in data/SOURCES.md with a source or 'assumption'.

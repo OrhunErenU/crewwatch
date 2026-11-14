@@ -4,7 +4,7 @@ Evidence packet -> short alert an astronaut can act on.
 Same rule as vendor ground/tlm_explain.py: nothing is invented. Every sentence
 is built from a number in the evidence packet, and selftest() checks that each
 sentence carries at least one of those numbers. Language is "check / early
-warning", never a diagnosis (ROADMAP rule 4).
+warning", never a diagnosis (project rule: no medical claims).
 
 Evidence packet (dict):
   score, threshold          int, from the flight C code

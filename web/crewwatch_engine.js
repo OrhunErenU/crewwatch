@@ -1,6 +1,6 @@
 /* CrewWatch in the browser: thin JS driver around crewwatch.wasm.
  *
- * No arithmetic here (ROADMAP rule 1). The wasm module is the flight C code:
+ * No arithmetic here (project rule: no second implementation). The wasm module is the flight C code:
  * tlm_watch_feature.c, tlm_watch_window.c, crewwatch_hold.c, tinyinfer.
  * JS only packs packets (little-endian, same layout as sim/crew.py) and
  * copies numbers in and out of wasm memory.

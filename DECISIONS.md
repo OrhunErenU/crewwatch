@@ -1,6 +1,6 @@
 # DECISIONS — one line each, newest last
 
-Made while the team lead was asleep (ROADMAP: "pick the most reasonable reading, write it here, continue").
+Made while the team lead was asleep (team plan: "pick the most reasonable reading, write it here, continue").
 
 | # | When | Decision | Why |
 |---|---|---|---|
@@ -23,7 +23,7 @@ Made while the team lead was asleep (ROADMAP: "pick the most reasonable reading,
 | D-17 | 11-14 | Counter features (HOLD/AGE) scaled so their train max maps to 400 LSB (RAW: p99.9 maps to 4000), ridge 3e-2. Chosen because, on **validation**, every top-0.1 % score was a packet-loss spike in a counter; with this setting the top validation scores come from HR RAW. | Thresholds must not be set by packet loss. |
 | D-18 | 11-14 | Range check uses **personal** limits (baseline + train delta range), like CrewWatch's personal feature tables. Event detection is reported next to its **chance level** (P(alarm) in a fault-free window of the same length). Brady plateau gets AR(1) jitter. | A fair comparison, and an honest metric for long fault windows. |
 | D-19 | 11-14 | Second model instance SLOW = same shape on the vendor flight window mean (64 ticks). Added after seeing test results, no detection gain, disclosed in eval/READING.md. **Model frozen after this.** | Avoid tuning on the test set. |
-| D-20 | 11-14 | Headline finding changed: CrewWatch's measured value is sensor-health faults + fewer false alarms on new people; types 3–4 not detected above chance by any method. Pitch must follow the data (ROADMAP §3.3: "write what comes out"). | Rule 2. |
+| D-20 | 11-14 | Headline finding changed: CrewWatch's measured value is sensor-health faults + fewer false alarms on new people; types 3–4 not detected above chance by any method. Pitch must follow the data (team plan: "write what comes out"). | Rule 2. |
 | D-21 | 11-14 | WASM: official emsdk **3.1.74** installed in WSL `~/emsdk` (no sudo; `scripts/install_emsdk.sh`). Browser path = unmodified flight C + `crewwatch_hold.c` + `web/wasm/cw_glue.c` (latch/tick bookkeeping in C, mirrors `features/bridge.py`). The .wasm is embedded as base64 in `web/crewwatch_wasm.js` so the panel also works from `file://` (browsers block `fetch` there). | Rule 1: browser scores come from the same C code, not JS. |
 | D-22 | 11-14 | Bit-exact reference = the host ctypes scores already exported in `web/data.js` (both models, every tick, 4 crew). Test has a negative control (Bias + 1 LSB must change scores) and a non-trivial check (≥ 90 % non-null slots). | Verify the test before trusting it. |
 | D-23 | 11-14 | **Board run dropped:** the team no longer has board access. Board numbers (11/11 bit-exact, 0.64 % budget, stack) are quoted only as prior-work measurements of the engine and model shape. CrewWatch determinism is shown on x86-64 vs wasm32 instead. Wording that implied CrewWatch ran "on the board" was removed from the drafts. No board footage in the video. | Roadmap §3.5: "Kart olmazsa video host çıktısıyla çekilir, bunu gizleme." |

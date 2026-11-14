@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Precompute the panel's replay data (ROADMAP rule 1: the browser does NOT
+Precompute the panel's replay data (project rule, no second implementation: the browser does NOT
 compute scores -- it plays back what the flight C code produced on the host).
 
 Scenario: the 4 test subjects are the crew; one injected fault each (+ a

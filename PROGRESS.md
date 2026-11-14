@@ -60,8 +60,9 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
    no board. Upload, make the link public, test it in a private window.
 4. ~~GitHub~~ **done:** pushed to https://github.com/OrhunErenU/crewwatch- (public). The repo name ends with
    a hyphen; renaming it to `crewwatch` in GitHub Settings is safe (GitHub redirects the old URL).
-   `vendor/` and `data/raw/` are git-ignored by design. Decide whether internal files
-   (`ROADMAP.md`, `ASSETS.md`, `.claude/`) should stay public.
+   `vendor/` and `data/raw/` are git-ignored by design. The internal plan, the local asset list and
+   `.claude/` were removed from the public repo (kept locally, git-ignored). They are still in the
+   git history of the first commits.
 5. **Space Apps page:** paste the rewritten fields; NASA data = DONKI + RAD; SI question from
    `AI_USE.md`; tick "Confirm All Work is Original" only after reading `PRIOR_WORK.md` together.
 6. Submit before **Sun 15 Nov 21:00** (the roadmap's buffer; hard deadline 23:59 local).
