@@ -6,7 +6,7 @@
  *   4. the page captures its own tab with MediaRecorder, runs the 30-s demo, uploads
  *   5. closes Chrome, deletes the throwaway profile
  *
- *   node --experimental-websocket scripts/record_demo.js "TEDU team"
+ *   node --experimental-websocket scripts/record_demo.js "TEDÜ BC"
  *
  * Written with AI assistance (Claude Code), see AI_USE.md.
  */
@@ -19,7 +19,7 @@ const path = require("path");
 const ROOT = path.join(__dirname, "..");
 const CHROME = process.env.CHROME || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const PORT = 8766, DBG = 9333;
-const team = process.argv[2] || "TEDU team";
+const team = process.argv[2] || "TEDÜ BC";
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function json(url) { const r = await fetch(url); return r.json(); }

@@ -62,8 +62,7 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 2. ~~Texts~~ **done:** final English text for every field in `docs/PROJECT_PAGE.md`, written with AI help at
    the team lead's request and disclosed in the SI field and `AI_USE.md`. Read it once before submitting.
 3. ~~Video~~ **done:** `docs/crewwatch-demo.mp4`, 29.1 s, 1920×1024, recorded automatically from the panel
-   (`node --experimental-websocket scripts/record_demo.js "TEDU team"`). Team name on the title card is
-   "TEDU team"; re-run with your real team name if it differs. Public link: GitHub (see project page).
+   (`node --experimental-websocket scripts/record_demo.js "TEDÜ BC"`). Team name on the title card: "TEDÜ BC". Public link: GitHub (see project page).
 4. ~~GitHub~~ **done:** pushed to https://github.com/OrhunErenU/crewwatch (public; renamed from `crewwatch-`, old URL redirects).
    `vendor/` and `data/raw/` are git-ignored by design. The internal plan, the local asset list and
    `.claude/` were removed from the public repo (kept locally, git-ignored) and from the whole git
