@@ -4,6 +4,7 @@ Shared definitions: channels, packets, crew split, feature table, replay loop.
 The replay loop turns 1 Hz channel values into byte packets per source and
 feeds them to features/bridge.Engine (flight C code). Nothing here computes a
 feature or a score.
+Written with AI assistance (Claude Code), see AI_USE.md.
 """
 import csv
 import os
@@ -46,9 +47,10 @@ PACKET_LOSS = 0.01       # i.i.d. per packet, assumption (D-11)
 FEATURES = [
     ("hr_x10", B.XFORM_RAW), ("rmssd_x10", B.XFORM_RAW), ("act_mg", B.XFORM_RAW),
     ("temp_x100", B.XFORM_RAW), ("eda_x1000", B.XFORM_RAW),
-    ("hr_x10", B.XFORM_DIFF), ("act_mg", B.XFORM_DIFF),
-    ("hr_x10", B.XFORM_HOLD), ("rmssd_x10", B.XFORM_HOLD), ("act_mg", B.XFORM_HOLD),
-    ("temp_x100", B.XFORM_HOLD), ("eda_x1000", B.XFORM_HOLD),
+    # No DIFF: vendor DIFF is counter semantics (unsigned, width-masked), so a
+    # falling HR gives 65535 instead of -1. See DECISIONS D-13.
+    # HOLD only where a healthy signal always moves (D-15)
+    ("hr_x10", B.XFORM_HOLD), ("rmssd_x10", B.XFORM_HOLD),
     ("src0", B.XFORM_AGE), ("src1", B.XFORM_AGE),
 ]
 F = len(FEATURES)
@@ -97,10 +99,11 @@ def copy_rec(rec):
 
 # ---------------------------------------------------------------- replay
 class Tick(object):
-    __slots__ = ("t", "vec", "latched", "hold", "age")
+    __slots__ = ("t", "vec", "latched", "hold", "age", "wmean")
 
-    def __init__(self, t, vec, latched, hold, age):
+    def __init__(self, t, vec, latched, hold, age, wmean=None):
         self.t, self.vec, self.latched, self.hold, self.age = t, vec, latched, hold, age
+        self.wmean = wmean   # flight window mean of the last 64 vectors (None until full)
 
 
 def replay(rec, defs, suppress=None, start=0, stop=None, seed=0, loss=PACKET_LOSS):
@@ -111,6 +114,7 @@ def replay(rec, defs, suppress=None, start=0, stop=None, seed=0, loss=PACKET_LOS
     limit checker on the downlinked telemetry sees), None until first packet.
     """
     eng = B.Engine(defs, N_SOURCES)
+    win = B.Window(len(defs))
     rnd = random.Random(seed * 1000003 + rec["subject"])
     n = len(rec["t"])
     stop = n if stop is None else min(stop, n)
@@ -132,5 +136,10 @@ def replay(rec, defs, suppress=None, start=0, stop=None, seed=0, loss=PACKET_LOS
                 latched[2], latched[3], latched[4] = rec["act_mg"][i], rec["temp_x100"][i], rec["eda_x1000"][i]
             eng.latch(src, pkt)
         vec = eng.tick()
+        wmean = None
+        if vec is not None:
+            win.push(vec)
+            if win.full():
+                wmean = win.mean()
         ht = eng.hold_ticks()
-        yield Tick(i, vec, list(latched), {FEATURES[j][0]: ht[j] for j in hold_idx}, list(eng.age))
+        yield Tick(i, vec, list(latched), {FEATURES[j][0]: ht[j] for j in hold_idx}, list(eng.age), wmean)

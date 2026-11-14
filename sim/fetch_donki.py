@@ -6,6 +6,7 @@ Fetch NASA DONKI Solar Energetic Particle (SEP) events, 60-day windows
 Source: NASA CCMC DONKI, https://ccmc.gsfc.nasa.gov/DONKI-API/get/SEP (no key).
 
     python3 sim/fetch_donki.py --start 2024-01-01 --end 2026-11-14
+Written with AI assistance (Claude Code), see AI_USE.md.
 """
 import argparse
 import datetime as dt

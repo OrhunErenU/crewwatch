@@ -8,6 +8,7 @@ second one for Crew D). Everything else in the recordings is real PPG-DaLiA.
 
     python3 web/export_demo.py        (WSL, after model/ and eval/)
 Writes web/data.js  (window.CREWWATCH = {...})
+Written with AI assistance (Claude Code), see AI_USE.md.
 """
 import json
 import os
@@ -18,10 +19,15 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "sim"))
 sys.path.insert(0, os.path.join(ROOT, "eval"))
 sys.path.insert(0, os.path.join(ROOT, "explain"))
+import importlib.util  # noqa: E402
 import crew as C  # noqa: E402
 import faults as FT  # noqa: E402
-import evaluate as EV  # noqa: E402
 import explain as X  # noqa: E402
+
+# load OUR eval/evaluate.py by path (vendor ground/ also has an evaluate.py on sys.path)
+_spec = importlib.util.spec_from_file_location("cw_evaluate", os.path.join(ROOT, "eval", "evaluate.py"))
+EV = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(EV)
 
 SCENARIO = {
     12: [(1, 2400)],
@@ -65,6 +71,7 @@ def main():
         score, a, b, c, alerts = [], [], [], [], []
         prev_c = False
         last_expl = -999
+        det.set_subject(k)      # personal range limits (D-18) -- same as eval
         for tk in C.replay(r, EV.defs_for(m, k), suppress=sup, seed=k):
             ra, rb, rc, sc, contrib = det.step(tk)
             for ci, ch in enumerate(C.CHANNELS):
@@ -73,8 +80,10 @@ def main():
             a.append(int(ra))
             b.append(int(rb))
             c.append(int(rc))
+            score[-1] = None if sc is None else round(sc, 4)      # ratio to own threshold, > 1 = alarm
             if rc and (not prev_c or tk.t - last_expl >= 30):
-                ev = {"score": sc, "threshold": m["threshold_int"], "contrib": contrib,
+                ratio, _, which, raw, thr = det.last
+                ev = {"score": raw, "threshold": thr, "contrib": contrib, "model": ("fast", "slow")[which],
                       "features": [f["name"] for f in m["features"]],
                       "latched": {ch[0]: tk.latched[ci] for ci, ch in enumerate(C.CHANNELS)},
                       "baseline": tab["baseline"], "hold": tk.hold, "age": tk.age,
@@ -96,9 +105,10 @@ def main():
     out = {
         "generated_by": "web/export_demo.py -- scores from flight C code (tinyinfer) via ctypes",
         "channels": [{"key": ch[0], "unit": ch[5], "name": ch[6], "scale": ch[4]} for ch in C.CHANNELS],
-        "threshold": m["threshold_int"], "limits": lim["limits"], "hold_n": lim["hold_n"],
+        "threshold": 1.0, "limits": lim["limits"], "hold_n": lim["hold_n"], "baseline_s": C.BASELINE_S,
         "crew": crew, "donki_sep": sep,
-        "results": {"by_type": res["by_type"], "fa": res["fa"], "model": res["model"]},
+        "results": {"by_type": res["by_type"], "fa": res["fa"], "model": res["model"],
+                    "chance": res.get("chance_by_type", {})},
         "fault_types": {str(t): {"key": v[0], "name": v[1], "duration": v[2]} for t, v in FT.TYPES.items()},
     }
     with open(os.path.join(HERE, "data.js"), "w") as f:

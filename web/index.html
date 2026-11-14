@@ -54,7 +54,9 @@ canvas{width:100%;display:block}
 @media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}}
 .big{font-family:var(--mono);font-size:26px}
 .small{font-size:12px;color:var(--muted)}
-table{border-collapse:collapse;width:100%;font-size:12.5px}
+table{border-collapse:collapse;width:100%;font-size:12px;table-layout:fixed}
+td:first-child,th:first-child{width:42%;overflow-wrap:anywhere}
+.card{min-width:0}
 th,td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}
 th:first-child,td:first-child{text-align:left}
 th{color:var(--muted);font-weight:600}
@@ -145,7 +147,7 @@ a{color:var(--accent)}
   </div>
   <div class="card">
     <h2>Sleep (reference)</h2>
-    <div class="big">6.1 h <span class="small">/ 8.5 h scheduled</span></div>
+    <div class="big">6.1 h</div><div class="small">measured, vs 8.5 h scheduled</div>
     <div class="small">Mean measured sleep on ISS (Barger et al., Lancet Neurol 2014). Not crew data: PPG-DaLiA has no sleep recordings.</div>
   </div>
   <div class="card">
@@ -167,7 +169,8 @@ const D = window.CREWWATCH;
 if(!D){document.body.innerHTML='<p style="padding:20px">web/data.js missing — run web/export_demo.py</p>';return;}
 const css = getComputedStyle(document.documentElement);
 const C = n => css.getPropertyValue(n).trim();
-let sel = 0, pos = 0, playing = false, last = null;
+const BASE = D.baseline_s || 0;   // personal-baseline window: not scored (D-10)
+let sel = 0, pos = BASE, playing = false, last = null;
 const crew = D.crew;
 const N = Math.max(...crew.map(c => c.score.length));
 const scrub = document.getElementById('scrub');
@@ -192,7 +195,7 @@ function lastAlert(c, i){let a=null;for(const x of c.alerts){if(x.t<=i)a=x;else 
 function updateCards(){
   [...crewEl.children].forEach((d, k) => {
     const c = crew[k], i = Math.min(pos, c.score.length-1);
-    const on = c.crewwatch[i], recent = c.crewwatch.slice(Math.max(0,i-300), i+1).some(Boolean);
+    const on = i >= BASE && c.crewwatch[i], recent = i >= BASE && c.crewwatch.slice(Math.max(BASE,i-300), i+1).some(Boolean);
     d.className = 'card member' + (k===sel?' sel':'') + (on?' alert':recent?' watch':'');
     const hr = val(c,'hr_x10',i), t = val(c,'temp_x100',i);
     d.querySelector('.vit').textContent = `HR ${hr==null?'--':hr.toFixed(0)} bpm · ${t==null?'--':t.toFixed(1)} °C`;
@@ -220,6 +223,9 @@ function draw(){
   const L = 120, R = 10, top = 4;
   const laneH = 62, scoreH = 110, stripH = 12, gap = 6;
   const x = t => L + (W-L-R) * t / (n-1);
+  // personal baseline window
+  g.fillStyle = 'rgba(139,152,168,.10)'; g.fillRect(L, top, x(Math.min(BASE,n-1))-L, H-top);
+  g.fillStyle = C('--muted'); g.font='11px system-ui'; g.fillText('personal baseline (not scored)', L+4, top+10);
   // fault shading
   g.fillStyle = C('--fault');
   for(const f of c.faults){g.fillRect(x(f.onset), top, Math.max(2, x(f.end)-x(f.onset)), H-top);}
@@ -250,7 +256,7 @@ function draw(){
   });
   // score lane, log scale
   const thr = D.threshold;
-  let smax = thr*10, smin = 1;
+  let smax = thr*10, smin = thr/1000;
   for(const s of c.score){if(s!=null&&s>smax)smax=s;}
   const ly = s => y + scoreH - 4 - (scoreH-8) * (Math.log10(Math.max(s,smin)) - Math.log10(smin)) / (Math.log10(smax)-Math.log10(smin));
   g.strokeStyle = C('--line'); g.beginPath(); g.moveTo(L,y+scoreH); g.lineTo(W-R,y+scoreH); g.stroke();
@@ -274,7 +280,7 @@ function draw(){
     g.fillStyle = C('--panel2'); g.fillRect(L, y, W-L-R, stripH);
     g.fillStyle = C(col);
     const arr = c[k]; let s0=-1;
-    for(let t=0;t<=i+1;t++){const on=t<=i&&arr[t];if(on&&s0<0)s0=t;if(!on&&s0>=0){g.fillRect(x(s0),y,Math.max(2,x(t)-x(s0)),stripH);s0=-1;}}
+    for(let t=BASE;t<=i+1;t++){const on=t<=i&&arr[t];if(on&&s0<0)s0=t;if(!on&&s0>=0){g.fillRect(x(s0),y,Math.max(2,x(t)-x(s0)),stripH);s0=-1;}}
     y += stripH + 6;
   });
   // fault labels
@@ -287,8 +293,8 @@ function draw(){
   document.getElementById('clock').textContent = hms(i);
   document.getElementById('met').textContent = 'replay ' + hms(i) + ' · ' + c.id;
   scrub.value = pos;
-  document.getElementById('vsRange').innerHTML = c.range[i] ? '<span class="pill on">ALARM</span>' : '<span class="pill">quiet</span>';
-  document.getElementById('vsCw').innerHTML = c.crewwatch[i] ? '<span class="pill on">ALARM</span>' : '<span class="pill">quiet</span>';
+  document.getElementById('vsRange').innerHTML = i < BASE ? '<span class="pill">calibrating</span>' : c.range[i] ? '<span class="pill on">ALARM</span>' : '<span class="pill">quiet</span>';
+  document.getElementById('vsCw').innerHTML = i < BASE ? '<span class="pill">calibrating</span>' : c.crewwatch[i] ? '<span class="pill on">ALARM</span>' : '<span class="pill">quiet</span>';
   const a = lastAlert(c, i), box = document.getElementById('alert');
   document.getElementById('alertWho').textContent = c.id;
   if(a && i - a.t < 600){
@@ -353,15 +359,19 @@ function drawBone(){
 
 // ---------- results table
 (function(){
-  const r = D.results.by_type, ft = D.fault_types, fa = D.results.fa;
-  let h = '<table><tr><th>Fault</th><th>Range</th><th>+HOLD</th><th>CrewW.</th></tr>';
+  const r = D.results.by_type, ft = D.fault_types, fa = D.results.fa, ch = D.results.chance || {};
+  let h = '<table><tr><th>Fault</th><th title="Range check">Range</th><th title="Range + HOLD rule">R+HOLD</th><th title="CrewWatch">CW</th></tr>';
   Object.keys(r).forEach(t => {
-    const row = r[t], v = ['range','range_hold','crewwatch'].map(k => row[k].rate);
-    const best = Math.max(...v);
-    h += `<tr><td>${t}. ${ft[t].name}</td>` + v.map(q => `<td class="${q===best&&best>0?'win':''}">${Math.round(q*100)}%</td>`).join('') + '</tr>';
+    const keys = ['range','range_hold','crewwatch'];
+    const v = keys.map(k => r[t][k].rate), c = keys.map(k => (ch[t]||{})[k]);
+    // "real" = clearly above that detector's own chance level
+    const real = v.map((q,i) => c[i]==null || q > c[i] + 0.2);
+    const best = Math.max(...v.filter((q,i)=>real[i]), 0);
+    h += `<tr><td>${t}. ${ft[t].name}</td>` + v.map((q,i) =>
+      `<td class="${real[i]&&q===best&&best>0?'win':''}" title="chance ${c[i]==null?'?':Math.round(c[i]*100)+'%'}">${Math.round(q*100)}%<span class="small">${c[i]==null?'':' /'+Math.round(c[i]*100)}</span></td>`).join('') + '</tr>';
   });
   h += `<tr><td>false alarms (clean)</td>${['range','range_hold','crewwatch'].map(k=>`<td>${(fa[k]*100).toFixed(2)}%</td>`).join('')}</tr></table>`;
-  h += `<div class="small" style="margin-top:6px">Detection rate per injected event, thresholds at the same false-alarm budget (${(D.results.model.fa_budget*100).toFixed(1)} % of validation ticks). Model ${D.results.model.F} features, ${D.results.model.weight_bytes}-byte int8 table.</div>`;
+  h += `<div class="small" style="margin-top:6px">Detection rate per injected event / <i>chance level</i> (same detector, fault-free window of equal length). Green = clearly above chance and best. Types 3–4: nobody beats chance. Thresholds at the same false-alarm budget (${(D.results.model.fa_budget*100).toFixed(1)} % of validation ticks). Model ${D.results.model.F} features, ${D.results.model.weight_bytes}-byte int8 table.</div>`;
   document.getElementById('results').innerHTML = h;
 })();
 

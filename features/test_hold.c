@@ -1,5 +1,6 @@
 /************************************************************************
  * Host test for crewwatch_hold.c -- build: features/build_host.sh
+ * Written with AI assistance (Claude Code), see AI_USE.md.
  ************************************************************************/
 
 #include <stdio.h>

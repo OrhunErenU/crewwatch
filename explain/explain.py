@@ -19,6 +19,7 @@ Evidence packet (dict):
 Note on attribution: with M = L^T (upper-triangular), row i of the residual
 mixes feature i with later features. The ranking is the flight evidence packet
 as produced on board; we label it "contribution", not "cause".
+Written with AI assistance (Claude Code), see AI_USE.md.
 """
 import os
 import sys
@@ -99,7 +100,10 @@ def explain(ev):
         actions.append("Unusual combination of readings. Check sensor fit first; "
                        "if sensors are fine, note how you feel and log it for the crew medical officer.")
     level = "ALERT" if over >= 1.0 else "OK"
-    headline = "Score %d is %.1fx the alert threshold %d." % (ev["score"], over, ev["threshold"])
+    which = ev.get("model")
+    headline = "Score %d is %.1fx the alert threshold %d%s." % (
+        ev["score"], over, ev["threshold"], "" if not which else
+        (" (1-second model)" if which == "fast" else " (64-second average model)"))
     return {"level": level, "headline": headline, "lines": lines, "actions": actions}
 
 

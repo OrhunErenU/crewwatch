@@ -3,6 +3,7 @@
  *
  * Written during NASA Space Apps 2026 (48 h).
  * Licensed under the Apache License, Version 2.0
+ * Written with AI assistance (Claude Code), see AI_USE.md.
  ************************************************************************/
 
 #include <stddef.h>

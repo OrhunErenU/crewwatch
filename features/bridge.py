@@ -10,6 +10,7 @@ tlm_watch_sample.c): packets are latched as they arrive, then on each fixed tick
 ages advance, the vector is built, DIFF/HOLD states advance.
 
 Build the .so first:  bash features/build_host.sh   (WSL, gcc)
+Written with AI assistance (Claude Code), see AI_USE.md.
 """
 
 import ctypes
@@ -44,6 +45,48 @@ class CHoldState(ctypes.Structure):
 
 
 FeatureDef = FC.FeatureDef
+
+WINDOW_LEN = 64       # TLM_WATCH_WINDOW_LEN (vendor config)
+MAX_FEATURES = 128    # TLM_WATCH_MAX_FEATURES
+
+
+class CWindow(ctypes.Structure):
+    """TLM_WATCH_Window_t (vendor tlm_watch_window.h)"""
+    _fields_ = [("NumFeatures", ctypes.c_uint16), ("Head", ctypes.c_uint16),
+                ("Count", ctypes.c_uint16), ("Pad", ctypes.c_uint16),
+                ("Data", (ctypes.c_int16 * MAX_FEATURES) * WINDOW_LEN)]
+
+
+class Window(object):
+    """Flight sliding window: push vectors, read the integer window mean.
+    Mean = vendor TLM_WATCH_WindowMean (int32 sum, integer division)."""
+
+    def __init__(self, nfeat):
+        lib = ctypes.CDLL(SO)
+        lib.TLM_WATCH_WindowInit.restype = ctypes.c_bool
+        lib.TLM_WATCH_WindowInit.argtypes = [ctypes.POINTER(CWindow), ctypes.c_uint16]
+        lib.TLM_WATCH_WindowPush.restype = None
+        lib.TLM_WATCH_WindowPush.argtypes = [ctypes.POINTER(CWindow), ctypes.POINTER(ctypes.c_int16)]
+        lib.TLM_WATCH_WindowMean.restype = ctypes.c_bool
+        lib.TLM_WATCH_WindowMean.argtypes = [ctypes.POINTER(CWindow), ctypes.POINTER(ctypes.c_int16)]
+        self.lib = lib
+        self.n = nfeat
+        self.w = CWindow()
+        if not lib.TLM_WATCH_WindowInit(ctypes.byref(self.w), nfeat):
+            raise RuntimeError("WindowInit failed")
+        self._out = (ctypes.c_int16 * nfeat)()
+
+    def push(self, vec):
+        v = (ctypes.c_int16 * self.n)(*vec)
+        self.lib.TLM_WATCH_WindowPush(ctypes.byref(self.w), v)
+
+    def full(self):
+        return self.w.Count >= WINDOW_LEN
+
+    def mean(self):
+        if not self.lib.TLM_WATCH_WindowMean(ctypes.byref(self.w), self._out):
+            return None
+        return list(self._out)
 
 
 class Engine(object):
@@ -171,7 +214,13 @@ def selftest():
     for f in fails:
         print("  FAIL tick %d: got %s expected %s" % f)
     print("bridge selftest: %d/%d ticks match" % (len(exp) - len(fails), len(exp)))
-    return 0 if not fails else 1
+    w = Window(2)
+    for v in ([1, -1], [2, -2], [4, -4]):
+        w.push(v)
+    wm = w.mean()
+    wok = wm == [2, -2]   # (1+2+4)/3 = 2 (int32 division truncates), (-7)/3 = -2
+    print("window mean selftest: %s (got %s)" % ("ok" if wok else "FAIL", wm))
+    return 0 if (not fails and wok) else 1
 
 
 if __name__ == "__main__":

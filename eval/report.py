@@ -78,19 +78,34 @@ def main():
                  100 * m["fa_budget"], lim["k"], 100 * lim["val_fa"],
                  ", ".join("%s ≥ %d" % (k, v) for k, v in sorted(lim["hold_n"].items()))), "",
              "## Detection rate per injected event", "",
+             "Each cell: detected/n = rate [95 % CI] · *chance* = probability that the same detector alarms at least "
+             "once in a fault-free window of the same length on clean test data. **A rate is only evidence of "
+             "detection where it clearly exceeds its chance level.**", "",
              "| Fault type | n | Range check | Range + HOLD | CrewWatch | median latency (s) R / R+H / CW |",
              "|---|---|---|---|---|---|"]
+    ch_all = res.get("chance_by_type", {})
     for t in sorted(res["by_type"], key=int):
         row = res["by_type"][t]
+        ch = ch_all.get(str(t), ch_all.get(int(t) if isinstance(t, str) else t, {}))
         cells = []
         for k, _, _ in METH:
             r = row[k]
             lo, hi = wilson(r["detected"], r["n"])
-            cells.append("%d/%d = **%.0f %%** <sub>[%.0f–%.0f]</sub>" % (r["detected"], r["n"], 100 * r["rate"], 100 * lo, 100 * hi))
+            c = ch.get(k)
+            cells.append("%d/%d = **%.0f %%** <sub>[%.0f–%.0f]</sub> · *chance %s*" % (
+                r["detected"], r["n"], 100 * r["rate"], 100 * lo, 100 * hi, "—" if c is None else "%.0f %%" % (100 * c)))
         lat = " / ".join("—" if row[k]["median_latency_s"] is None else str(row[k]["median_latency_s"]) for k, _, _ in METH)
         lines.append("| %s. %s | %d | %s | %s |" % (t, FT.TYPES[int(t)][1], row["crewwatch"]["n"], " | ".join(cells), lat))
     lines += ["", "<sub>[a–b] = 95 % Wilson interval. Detected = at least one alarm tick between onset and end + 60 s.</sub>", "",
               "![detection](detection.svg)", "",
+              "## Slow drift: size sweep (type 4)", "",
+              "1.0 °C is the sourced case (8.5 bpm/°C); 0.5/2/3 °C are a labelled sensitivity sweep. Chance level for a "
+              "3 660-s window: range %.0f %%, range+HOLD %.0f %%, CrewWatch %.0f %%." % tuple(
+                  100 * res.get("chance_drift", {}).get(k, float("nan")) for k, _, _ in METH), "",
+              "| fever-like drift | n | Range | Range + HOLD | CrewWatch |", "|---|---|---|---|---|"] + [
+              "| %s °C | %d | %.0f %% | %.0f %% | %.0f %% |" % (d, v["crewwatch"]["n"], 100 * v["range"]["rate"],
+                                                         100 * v["range_hold"]["rate"], 100 * v["crewwatch"]["rate"])
+              for d, v in sorted(res.get("drift_sweep", {}).items(), key=lambda kv: float(kv[0]))] + ["",
               "## False alarms on clean test data (realised, not tuned)", "",
               "| | Range check | Range + HOLD | CrewWatch |", "|---|---|---|---|",
               "| alarm ticks / clean ticks | %.3f %% | %.3f %% | %.3f %% |" % (100 * fa["range"], 100 * fa["range_hold"], 100 * fa["crewwatch"]),
@@ -104,11 +119,15 @@ def main():
               "- decision agreement on validation: %.3f %%" % (100 * m["val_int_float_agreement"]), "",
               "## Model", "",
               "- F = %d features → %d-byte int8 weight table (F ≤ 25: same shape class as the board-measured model)" % (m["F"], m["weight_bytes"]),
-              "- integer threshold %d" % m["threshold_int"], "",
+              "- two instances of the same shape: FAST (1 Hz vector) and SLOW (flight 64-tick window mean, "
+              "vendor `TLM_WATCH_WindowMean`); integer thresholds %d / %d, each at half the budget" % (
+                  m["threshold_int"], m.get("threshold_slow_int", -1)), "",
               "## Which feature led the first CrewWatch alarm (count of events)", ""]
     for t, d in sorted(res["top_contributor_at_first_alarm"].items(), key=lambda kv: int(kv[0])):
         lines.append("- type %s: %s" % (t, ", ".join("%s ×%d" % kv for kv in sorted(d.items(), key=lambda kv: -kv[1]))))
-    lines += ["", "## Reading this table honestly", "", "_Filled in by hand after looking at the numbers — see below._", ""]
+    here = os.path.join(HERE, "READING.md")
+    if os.path.exists(here):
+        lines += ["", open(here, encoding="utf-8").read()]
     with open(os.path.join(HERE, "RESULTS.md"), "w") as f:
         f.write("\n".join(lines))
     svg(res, os.path.join(HERE, "detection.svg"))

@@ -1,0 +1,5486 @@
+{
+ "limits": {
+  "train_lo": [
+   -362.78666666666663,
+   -654.7225,
+   -72.63916666666667,
+   -389.0500000000002,
+   -4104.91
+  ],
+  "train_hi": [
+   790.725,
+   552.2775,
+   805.8191666666667,
+   502.98166666666657,
+   28705.805833333332
+  ],
+  "k": 0.01,
+  "val_fa": 0.00044958515551559244,
+  "limits": [
+   [
+    -374.3217833333333,
+    802.2601166666667
+   ],
+   [
+    -666.7925,
+    564.3475000000001
+   ],
+   [
+    -81.42375,
+    814.60375
+   ],
+   [
+    -397.97031666666686,
+    511.90198333333325
+   ],
+   [
+    -4433.017158333333,
+    29033.912991666664
+   ]
+  ],
+  "hold_n": {
+   "hr_x10": 9,
+   "rmssd_x10": 30
+  }
+ },
+ "clean": {
+  "range": 832,
+  "range_hold": 837,
+  "crewwatch": 100,
+  "ticks": 28894,
+  "disagree": 7
+ },
+ "fa": {
+  "range": 0.028794905516716273,
+  "range_hold": 0.02896795182390808,
+  "crewwatch": 0.0034609261438360906
+ },
+ "events": [
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 1857,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 2198,
+   "range": {
+    "detected": true,
+    "latency": 335,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 2788,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 7
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 7
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 1
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 3323,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 3472,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 3655,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 3908,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 4142,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 4479,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 4643,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 5364,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 6257,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 6941,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 7121,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 12,
+   "onset": 7293,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 1818,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 2695,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 6
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 3331,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 6,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 4197,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 4423,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 5172,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 5539,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 5710,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 5840,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 7,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 6015,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 6479,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 7145,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 7669,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 8036,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 13,
+   "onset": 8641,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 1809,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 2442,
+   "range": {
+    "detected": true,
+    "latency": 308,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 2591,
+   "range": {
+    "detected": true,
+    "latency": 159,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 6,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 2859,
+   "range": {
+    "detected": true,
+    "latency": 320,
+    "pre_fa": 52
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 52
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 4169,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 5019,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 5235,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 5400,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 5557,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 7039,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 7251,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 7377,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 7699,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 8183,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 14,
+   "onset": 8376,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 1864,
+   "range": {
+    "detected": true,
+    "latency": 95,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 5,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 6,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 2227,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 41
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 41
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 2675,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 3040,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 3177,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 3588,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 4168,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 4464,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 4978,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 6,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 7,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 5277,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 5542,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 5864,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 6251,
+   "range": {
+    "detected": true,
+    "latency": 300,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 6404,
+   "range": {
+    "detected": true,
+    "latency": 147,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 11,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 1,
+   "subject": 15,
+   "onset": 6816,
+   "range": {
+    "detected": true,
+    "latency": 24,
+    "pre_fa": 107
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 9,
+    "pre_fa": 107
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 10,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 2585,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 7
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 7
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 1,
+    "pre_fa": 1
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 3486,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 3661,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 3797,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 4421,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 4940,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 5272,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 5452,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 7,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 5671,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 6072,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 6208,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 6561,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 6752,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 6958,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 12,
+   "onset": 7287,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 1894,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 2022,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 2385,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 2510,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 2,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 3052,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 7,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 3634,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 4150,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 4749,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 5304,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 5586,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 5763,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 6134,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 7033,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 7526,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 13,
+   "onset": 8644,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 1903,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 2297,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 2548,
+   "range": {
+    "detected": true,
+    "latency": 202,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 2,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 3158,
+   "range": {
+    "detected": true,
+    "latency": 21,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 2,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 3423,
+   "range": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 244
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 244
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 1,
+    "pre_fa": 88
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 3965,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 12
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 12
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 2,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 4443,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 4751,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 4933,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 6,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 5393,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 5522,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 6126,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 6782,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 6944,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 14,
+   "onset": 7140,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 1567,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 1747,
+   "range": {
+    "detected": true,
+    "latency": 212,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 2503,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 2916,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 7,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 3121,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 3732,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 7,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 3980,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 4201,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 6,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 4591,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 4826,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 5337,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 5547,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 5823,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 6057,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 2,
+   "subject": 15,
+   "onset": 6731,
+   "range": {
+    "detected": true,
+    "latency": 109,
+    "pre_fa": 107
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 8,
+    "pre_fa": 107
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 3,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 12,
+   "onset": 2026,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 12,
+   "onset": 2539,
+   "range": {
+    "detected": true,
+    "latency": 33,
+    "pre_fa": 3
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 33,
+    "pre_fa": 3
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 1
+   }
+  },
+  {
+   "type": 3,
+   "subject": 12,
+   "onset": 3661,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 12,
+   "onset": 4165,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 12,
+   "onset": 5750,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 13,
+   "onset": 1702,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 13,
+   "onset": 2088,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 228,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 13,
+   "onset": 2664,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 6
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 13,
+   "onset": 4194,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 13,
+   "onset": 6579,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 14,
+   "onset": 1729,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 14,
+   "onset": 2119,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 14,
+   "onset": 4260,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 14,
+   "onset": 8251,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 15,
+   "onset": 1639,
+   "range": {
+    "detected": true,
+    "latency": 320,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 320,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 15,
+   "onset": 2037,
+   "range": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 8
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 8
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 15,
+   "onset": 2536,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 15,
+   "onset": 3737,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 3,
+   "subject": 15,
+   "onset": 6332,
+   "range": {
+    "detected": true,
+    "latency": 219,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 219,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 1551,
+   "range": {
+    "detected": true,
+    "latency": 982,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 982,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 971,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 1706,
+   "range": {
+    "detected": true,
+    "latency": 827,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 827,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 825,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 1945,
+   "range": {
+    "detected": true,
+    "latency": 588,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 588,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 577,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 2127,
+   "range": {
+    "detected": true,
+    "latency": 406,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 406,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 408,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 2251,
+   "range": {
+    "detected": true,
+    "latency": 282,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 282,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 271,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 2412,
+   "range": {
+    "detected": true,
+    "latency": 121,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 121,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 123,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 2657,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 7
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 7
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 2
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 2778,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 7
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 7
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 1
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 3010,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 3231,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 3353,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 3592,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 3716,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 3919,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 12,
+   "onset": 4090,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 1636,
+   "range": {
+    "detected": true,
+    "latency": 919,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 884,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 887,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 2208,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 312,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 2494,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 26,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 2772,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 6
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 2938,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 3154,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 3312,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 3449,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 3646,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 3831,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 3970,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 4227,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 4478,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 4805,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 13,
+   "onset": 5250,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 1629,
+   "range": {
+    "detected": true,
+    "latency": 931,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 931,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 1126,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 1750,
+   "range": {
+    "detected": true,
+    "latency": 813,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 813,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 998,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 1993,
+   "range": {
+    "detected": true,
+    "latency": 573,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 573,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 1202,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 2325,
+   "range": {
+    "detected": true,
+    "latency": 420,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 420,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 917,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 2656,
+   "range": {
+    "detected": true,
+    "latency": 92,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 92,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 589,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 3085,
+   "range": {
+    "detected": true,
+    "latency": 90,
+    "pre_fa": 18
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 90,
+    "pre_fa": 18
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 172,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 3509,
+   "range": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 300
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 300
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 98
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 3767,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 203
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 203
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 4000,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 4225,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 4404,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 4527,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 4666,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 4803,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 14,
+   "onset": 5053,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 1517,
+   "range": {
+    "detected": true,
+    "latency": 442,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 442,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 1658,
+   "range": {
+    "detected": true,
+    "latency": 301,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 301,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 1842,
+   "range": {
+    "detected": true,
+    "latency": 117,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 117,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 2007,
+   "range": {
+    "detected": true,
+    "latency": 26,
+    "pre_fa": 3
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 26,
+    "pre_fa": 3
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 2248,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 41
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 41
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 2372,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 2520,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 2671,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 2870,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 3035,
+   "range": {
+    "detected": true,
+    "latency": 3516,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 3516,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 3281,
+   "range": {
+    "detected": true,
+    "latency": 3270,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 3270,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 3429,
+   "range": {
+    "detected": true,
+    "latency": 3122,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 3122,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 3601,
+   "range": {
+    "detected": true,
+    "latency": 2950,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 2950,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 3837,
+   "range": {
+    "detected": true,
+    "latency": 2714,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 2714,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 4,
+   "subject": 15,
+   "onset": 4035,
+   "range": {
+    "detected": true,
+    "latency": 2516,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 2516,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 1555,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 1722,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 2192,
+   "range": {
+    "detected": true,
+    "latency": 341,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 341,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 54,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 3165,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 3705,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 3866,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 4377,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 4565,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 4718,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 5335,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 5537,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 6150,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 6926,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 7056,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 12,
+   "onset": 7201,
+   "range": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 2065,
+   "range": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 81,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 2708,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 6
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 43,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 3247,
+   "range": {
+    "detected": true,
+    "latency": 46,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 46,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 44,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 3476,
+   "range": {
+    "detected": true,
+    "latency": 46,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 46,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 3734,
+   "range": {
+    "detected": true,
+    "latency": 48,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 48,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 4174,
+   "range": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 86,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 4846,
+   "range": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 104,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 5742,
+   "range": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 5871,
+   "range": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 6048,
+   "range": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 7006,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 7325,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 46,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 7520,
+   "range": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 7644,
+   "range": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 13,
+   "onset": 8199,
+   "range": {
+    "detected": true,
+    "latency": 48,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 48,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 1547,
+   "range": {
+    "detected": true,
+    "latency": 43,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 43,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 52,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 2075,
+   "range": {
+    "detected": true,
+    "latency": 45,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 45,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 155,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 2241,
+   "range": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 47,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 2425,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 41,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 2648,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 47,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 3370,
+   "range": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 191
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 191
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 2,
+    "pre_fa": 81
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 3493,
+   "range": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 300
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 300
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 28,
+    "pre_fa": 95
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 3670,
+   "range": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 293
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 0,
+    "pre_fa": 293
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 33,
+    "pre_fa": 17
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 4129,
+   "range": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 56,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 5169,
+   "range": {
+    "detected": true,
+    "latency": 44,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 44,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 5922,
+   "range": {
+    "detected": true,
+    "latency": 46,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 46,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 6674,
+   "range": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 7488,
+   "range": {
+    "detected": true,
+    "latency": 44,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 44,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 7739,
+   "range": {
+    "detected": true,
+    "latency": 41,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 41,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 14,
+   "onset": 7915,
+   "range": {
+    "detected": true,
+    "latency": 41,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 41,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 1549,
+   "range": {
+    "detected": true,
+    "latency": 52,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 52,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 192,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 1809,
+   "range": {
+    "detected": true,
+    "latency": 54,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 54,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 1978,
+   "range": {
+    "detected": true,
+    "latency": 55,
+    "pre_fa": 3
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 55,
+    "pre_fa": 3
+   },
+   "crewwatch": {
+    "detected": true,
+    "latency": 165,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 2890,
+   "range": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 3149,
+   "range": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 3414,
+   "range": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 51,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 4235,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 4668,
+   "range": {
+    "detected": true,
+    "latency": 52,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 52,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 4814,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 4966,
+   "range": {
+    "detected": true,
+    "latency": 52,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 52,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 5164,
+   "range": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 50,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 5723,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 6010,
+   "range": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 53,
+    "pre_fa": 0
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 6662,
+   "range": {
+    "detected": true,
+    "latency": 2,
+    "pre_fa": 52
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 2,
+    "pre_fa": 52
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  },
+  {
+   "type": 5,
+   "subject": 15,
+   "onset": 7041,
+   "range": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 20
+   },
+   "range_hold": {
+    "detected": true,
+    "latency": 49,
+    "pre_fa": 20
+   },
+   "crewwatch": {
+    "detected": false,
+    "latency": null,
+    "pre_fa": 0
+   }
+  }
+ ],
+ "drift_sweep": {
+  "0.5": {
+   "range": {
+    "n": 28,
+    "detected": 12,
+    "rate": 0.42857142857142855,
+    "median_latency_s": 810
+   },
+   "range_hold": {
+    "n": 28,
+    "detected": 15,
+    "rate": 0.5357142857142857,
+    "median_latency_s": 612
+   },
+   "crewwatch": {
+    "n": 28,
+    "detected": 9,
+    "rate": 0.32142857142857145,
+    "median_latency_s": 601
+   }
+  },
+  "1.0": {
+   "range": {
+    "n": 28,
+    "detected": 13,
+    "rate": 0.4642857142857143,
+    "median_latency_s": 630
+   },
+   "range_hold": {
+    "n": 28,
+    "detected": 15,
+    "rate": 0.5357142857142857,
+    "median_latency_s": 612
+   },
+   "crewwatch": {
+    "n": 28,
+    "detected": 10,
+    "rate": 0.35714285714285715,
+    "median_latency_s": 601
+   }
+  },
+  "2.0": {
+   "range": {
+    "n": 28,
+    "detected": 15,
+    "rate": 0.5357142857142857,
+    "median_latency_s": 595
+   },
+   "range_hold": {
+    "n": 28,
+    "detected": 15,
+    "rate": 0.5357142857142857,
+    "median_latency_s": 595
+   },
+   "crewwatch": {
+    "n": 28,
+    "detected": 11,
+    "rate": 0.39285714285714285,
+    "median_latency_s": 566
+   }
+  },
+  "3.0": {
+   "range": {
+    "n": 28,
+    "detected": 17,
+    "rate": 0.6071428571428571,
+    "median_latency_s": 603
+   },
+   "range_hold": {
+    "n": 28,
+    "detected": 17,
+    "rate": 0.6071428571428571,
+    "median_latency_s": 603
+   },
+   "crewwatch": {
+    "n": 28,
+    "detected": 11,
+    "rate": 0.39285714285714285,
+    "median_latency_s": 525
+   }
+  }
+ },
+ "by_type": {
+  "1": {
+   "range": {
+    "n": 60,
+    "detected": 8,
+    "rate": 0.13333333333333333,
+    "median_latency_s": 300
+   },
+   "range_hold": {
+    "n": 60,
+    "detected": 60,
+    "rate": 1.0,
+    "median_latency_s": 9
+   },
+   "crewwatch": {
+    "n": 60,
+    "detected": 60,
+    "rate": 1.0,
+    "median_latency_s": 10
+   }
+  },
+  "2": {
+   "range": {
+    "n": 60,
+    "detected": 5,
+    "rate": 0.08333333333333333,
+    "median_latency_s": 109
+   },
+   "range_hold": {
+    "n": 60,
+    "detected": 60,
+    "rate": 1.0,
+    "median_latency_s": 8
+   },
+   "crewwatch": {
+    "n": 60,
+    "detected": 60,
+    "rate": 1.0,
+    "median_latency_s": 3
+   }
+  },
+  "3": {
+   "range": {
+    "n": 19,
+    "detected": 4,
+    "rate": 0.21052631578947367,
+    "median_latency_s": 219
+   },
+   "range_hold": {
+    "n": 19,
+    "detected": 4,
+    "rate": 0.21052631578947367,
+    "median_latency_s": 219
+   },
+   "crewwatch": {
+    "n": 19,
+    "detected": 1,
+    "rate": 0.05263157894736842,
+    "median_latency_s": 228
+   }
+  },
+  "4": {
+   "range": {
+    "n": 60,
+    "detected": 24,
+    "rate": 0.4,
+    "median_latency_s": 588
+   },
+   "range_hold": {
+    "n": 60,
+    "detected": 26,
+    "rate": 0.43333333333333335,
+    "median_latency_s": 573
+   },
+   "crewwatch": {
+    "n": 60,
+    "detected": 13,
+    "rate": 0.21666666666666667,
+    "median_latency_s": 825
+   }
+  },
+  "5": {
+   "range": {
+    "n": 60,
+    "detected": 46,
+    "rate": 0.7666666666666667,
+    "median_latency_s": 50
+   },
+   "range_hold": {
+    "n": 60,
+    "detected": 46,
+    "rate": 0.7666666666666667,
+    "median_latency_s": 50
+   },
+   "crewwatch": {
+    "n": 60,
+    "detected": 19,
+    "rate": 0.31666666666666665,
+    "median_latency_s": 49
+   }
+  }
+ },
+ "chance_by_type": {
+  "1": {
+   "range": 0.12213740458015267,
+   "range_hold": 0.13522355507088332,
+   "crewwatch": 0.03489640130861505
+  },
+  "2": {
+   "range": 0.12213740458015267,
+   "range_hold": 0.13522355507088332,
+   "crewwatch": 0.03489640130861505
+  },
+  "3": {
+   "range": 0.12213740458015267,
+   "range_hold": 0.13522355507088332,
+   "crewwatch": 0.03489640130861505
+  },
+  "4": {
+   "range": 0.4276729559748428,
+   "range_hold": 0.5220125786163522,
+   "crewwatch": 0.2578616352201258
+  },
+  "5": {
+   "range": 0.12213740458015267,
+   "range_hold": 0.13522355507088332,
+   "crewwatch": 0.03489640130861505
+  }
+ },
+ "chance_drift": {
+  "range": 0.4276729559748428,
+  "range_hold": 0.5220125786163522,
+  "crewwatch": 0.2578616352201258
+ },
+ "top_contributor_at_first_alarm": {
+  "1": {
+   "heart rate HOLD": 59,
+   "heart rate RAW": 1
+  },
+  "2": {
+   "skin conductance RAW": 3,
+   "chest strap silence (AGE)": 57
+  },
+  "3": {
+   "heart rate RAW": 1
+  },
+  "4": {
+   "skin conductance RAW": 12,
+   "heart rate RAW": 1
+  },
+  "5": {
+   "heart rate RAW": 16,
+   "skin conductance RAW": 3
+  }
+ },
+ "model": {
+  "F": 9,
+  "weight_bytes": 162,
+  "threshold_int": 688768,
+  "threshold_slow_int": 771530,
+  "window_len": 64,
+  "fa_budget": 0.001,
+  "val_int_float_agreement": 0.9999182572444517
+ }
+}

@@ -11,6 +11,7 @@ Types
   4 drift       slow joint shift: HR +8.5 bpm, skin temp +0.5 degC, RMSSD -25 %,
                 EDA +10 %, 30 min ramp + 30 min plateau, each channel stays in range
   5 brady       HR ramps to 35 bpm in 60 s and stays (control: range check should win)
+Written with AI assistance (Claude Code), see AI_USE.md.
 """
 import random
 
@@ -34,7 +35,7 @@ JITTER_X10 = 5.0             # assumption: 0.5 bpm AR(1) jitter on a decoupled H
 VIGOROUS = (2, 3, 4, 7)      # DaLiA activities: stairs, table soccer, cycling, walking
 
 
-def inject(rec, ftype, onset, seed=0):
+def inject(rec, ftype, onset, seed=0, fever_degc=None):
     """-> (modified record copy, suppress dict, label list[0/ftype])"""
     r = C.copy_rec(rec)
     n = len(r["t"])
@@ -62,18 +63,26 @@ def inject(rec, ftype, onset, seed=0):
             x = a * x + rnd.gauss(0.0, e)
             hr[i] = int(round(base + x))
     elif ftype == 4:
+        deg = FEVER_DEGC if fever_degc is None else fever_degc
         ramp = 1800
         for i in range(onset, end):
             f = min(1.0, (i - onset) / float(ramp))
-            hr[i] = int(round(hr[i] + f * HR_PER_DEGC_X10 * FEVER_DEGC))
-            r["temp_x100"][i] = int(round(r["temp_x100"][i] + f * SKIN_RISE_X100 * FEVER_DEGC))
-            r["rmssd_x10"][i] = int(round(r["rmssd_x10"][i] * (1 - f * (1 - RMSSD_FACTOR))))
-            r["eda_x1000"][i] = int(round(r["eda_x1000"][i] * (1 + f * (EDA_FACTOR - 1))))
+            hr[i] = int(round(hr[i] + f * HR_PER_DEGC_X10 * deg))
+            r["temp_x100"][i] = int(round(r["temp_x100"][i] + f * SKIN_RISE_X100 * deg))
+            r["rmssd_x10"][i] = int(round(r["rmssd_x10"][i] * (1 - f * min(0.9, (1 - RMSSD_FACTOR) * deg))))
+            r["eda_x1000"][i] = int(round(r["eda_x1000"][i] * (1 + f * (EDA_FACTOR - 1) * deg)))
     elif ftype == 5:
+        # same AR(1) jitter as type 3, so the plateau is not a constant value
+        # (a constant would trip the HOLD rule for the wrong reason)
+        rnd = random.Random(seed * 7919 + onset + 5)
         v0 = hr[onset]
+        x = 0.0
+        a = 0.9
+        e = JITTER_X10 * (1 - a * a) ** 0.5
         for i in range(onset, end):
             f = min(1.0, (i - onset) / 60.0)
-            hr[i] = int(round(v0 + f * (BRADY_X10 - v0)))
+            x = a * x + rnd.gauss(0.0, e)
+            hr[i] = int(round(v0 + f * (BRADY_X10 - v0) + x))
     else:
         raise ValueError(ftype)
     return r, suppress, label
@@ -89,16 +98,23 @@ def onsets(rec, ftype, k, seed=0, pre=300, post=120):
         return []
     rnd = random.Random(seed * 31 + ftype * 1000 + rec["subject"])
     if ftype == 3:
-        # 30 s before the real activity label switches into a vigorous activity
-        act = rec["activity"]
-        cand = [i - 30 for i in range(1, n) if act[i] in VIGOROUS and act[i - 1] not in VIGOROUS]
-        cand = [c for c in cand if lo <= c <= hi]
-        return sorted(cand)[:k]
+        # real activity rises: 30-s activity goes from < 100 mg to >= +80 mg
+        # within 60 s (the label switch alone gave only ~2 events/person).
+        # Candidates at least 300 s apart.
+        act = rec["act_mg"]
+        cand = []
+        for i in range(lo, min(hi, n - 60)):
+            if act[i] < 100 and act[i + 60] - act[i] >= 80 and (not cand or i - cand[-1] >= 300):
+                cand.append(i)
+        rnd.shuffle(cand)
+        return sorted(cand[:k])
+    # Each event is replayed on its OWN copy of the record, so onsets may
+    # share background; they only need to be distinct (>= 120 s apart).
     out = []
     tries = 0
     while len(out) < k and tries < 10000:
         tries += 1
         c = rnd.randint(lo, hi)
-        if all(abs(c - o) > dur + pre for o in out):
+        if all(abs(c - o) >= 120 for o in out):
             out.append(c)
     return sorted(out)

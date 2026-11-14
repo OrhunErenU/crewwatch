@@ -5,6 +5,7 @@
  * tlm_watch_feature.c: no float, no division, no malloc, no cFS headers.
  *
  * Licensed under the Apache License, Version 2.0
+ * Written with AI assistance (Claude Code), see AI_USE.md.
  ************************************************************************/
 
 /**

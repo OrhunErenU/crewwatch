@@ -16,7 +16,7 @@ Per second t (1 Hz grid, t = 0 is recording start):
                and |dRR| <= 20 % of previous (simple artefact rule, assumption).
   src 1 (wrist)
     act_mg     ENMO = max(0, |acc| - 1 g) in milli-g, mean of trailing 30 s
-               (E4 ACC unit is 1/64 g).
+               (pickle ACC is in g).
     temp_x100  skin temperature in 0.01 degC: LAST 4 Hz sample of the second
                (latch semantics -- keeps the sensor's real resolution, so a
                naturally steady value really repeats).
@@ -25,6 +25,7 @@ Per second t (1 Hz grid, t = 0 is recording start):
     activity   DaLiA activity id (last 4 Hz sample of the second)
 
     python3 sim/prep_dalia.py --raw data/raw/dalia/PPG_FieldStudy --out data/dalia_1hz
+Written with AI assistance (Claude Code), see AI_USE.md.
 """
 import argparse
 import csv
@@ -82,7 +83,7 @@ def process(path):
 
     rmssd = rmssd_series(d["rpeaks"], n_sec)
 
-    acc = np.asarray(wrist["ACC"], dtype=float) / 64.0
+    acc = np.asarray(wrist["ACC"], dtype=float)  # already in g in the pickle (checked: median norm 1.013)
     enmo = np.maximum(0.0, np.sqrt((acc * acc).sum(axis=1)) - 1.0) * 1000.0
     n_acc_sec = len(enmo) // ACC_FS
     per_sec = enmo[: n_acc_sec * ACC_FS].reshape(n_acc_sec, ACC_FS).mean(axis=1)
@@ -107,12 +108,15 @@ def process(path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", required=True, help="folder holding S1/S1.pkl ... S15/S15.pkl")
+    ap.add_argument("--raw", help="folder holding S1/S1.pkl ... S15/S15.pkl")
+    ap.add_argument("--pkl", help="one pickle (use with --subject); lets a script unzip one at a time")
+    ap.add_argument("--subject", type=int)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
-    for k in range(1, 16):
-        p = os.path.join(a.raw, "S%d" % k, "S%d.pkl" % k)
+    todo = [(a.subject, a.pkl)] if a.pkl else \
+        [(k, os.path.join(a.raw, "S%d" % k, "S%d.pkl" % k)) for k in range(1, 16)]
+    for k, p in todo:
         if not os.path.exists(p):
             print("missing %s" % p, file=sys.stderr)
             continue
