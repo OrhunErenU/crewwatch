@@ -1,32 +1,59 @@
 # PROGRESS — read this first when you wake up
 
-## Status (Sat 14 Nov, updated by Claude Code)
+## TL;DR (Sat 14 Nov, ~14:15, Claude Code)
+
+**P0 done.** Pipeline runs end to end on real data; panel opens offline.
+**The headline result is not the one the roadmap expected. Read `eval/RESULTS.md` → "Reading this table honestly" before writing the pitch.**
+
+| Fault | Range | Range+HOLD | CrewWatch | verdict |
+|---|---|---|---|---|
+| 1 frozen HR | 13 % (chance 12) | **100 %** | **100 %** | simple rule = CrewWatch |
+| 2 silent strap | 8 % (12) | **100 %** | **100 %** (3 s vs 8 s) | simple rule ≈ CrewWatch, CW faster |
+| 3 HR ignores activity | 21 % (12) | 21 % (14) | 5 % (4) | **nobody** clearly above chance |
+| 4 fever-like drift | 40 % (43) | 43 % (52) | 22 % (26) | **nobody** above chance |
+| 5 bradycardia | **77 %** | **77 %** | 32 % | range check wins (expected) |
+| false alarms, new people | 2.9 % | 2.9 % | **0.35 %** | CrewWatch ~8× fewer |
+
+What CrewWatch can honestly claim: sensor-health faults (frozen/silent wearable) in one deterministic
+integer model, with ~8× fewer false alarms on unseen people, int = float (0.024 % decision difference).
+What it cannot claim: catching slow physiological drift at 1 Hz with wrist sensors.
+**Team decision needed:** pitch around this (DECISIONS D-20).
+
+## Checklist
 
 ### P0
-- [x] **Setup + `verify_ctypes.py` GECTI** — `bash scripts/setup_vendor.sh` (WSL) clones vendor @ pinned commits, prints `GECTI`, builds HOLD lib, runs both self-tests.
-- [x] **HOLD transform in C + host test** (P1 item, done early because the features need it) — `bash features/build_host.sh` → `crewwatch_hold: 15/15 checks passed`; `python3 features/bridge.py` → `7/7 ticks match`.
-- [ ] Real dataset (PPG-DaLiA) downloaded → 1 Hz → person-wise split
-- [ ] Fault injector on real recordings + SOURCES.md (code done: `sim/faults.py`, sources: `data/SOURCES.md`)
-- [ ] Model table + integer threshold (code done: `model/build_model.py`)
-- [ ] `eval/RESULTS.md` (code done: `eval/evaluate.py`, `eval/report.py`)
-- [ ] Offline panel (code done: `web/index.html`, data: `web/export_demo.py`)
+- [x] Setup + `verify_ctypes.py` **GECTI** — `bash scripts/setup_vendor.sh`
+- [x] PPG-DaLiA (15 people) → 1 Hz, person-wise split — `bash scripts/prep_dalia.sh`, see `data/DATASETS.md`
+- [x] Fault injector on real recordings, 5 types, every parameter sourced or labelled — `sim/faults.py`, `data/SOURCES.md`
+- [x] Integer Mahalanobis tables + thresholds via ctypes — `python3 model/build_model.py` (F = 9 → 162 B per model; fast + slow)
+- [x] `eval/RESULTS.md` three detectors, matched budget, chance levels — `python3 eval/evaluate.py && python3 eval/report.py`
+- [x] Offline panel — `python3 web/export_demo.py`, then open `web/index.html` (works from file://)
 
-### Also done
-- NASA DONKI SEP events fetched (214 events, 2024-01 … 2026-11): `data/nasa/donki_sep.json` — needed for Global Award eligibility.
-- Space Apps guide checked → see DECISIONS D-05 (30-s video, SI disclosure).
-- `ASSETS.md`, `PRIOR_WORK.md`, `LIMITATIONS.md`, `AI_USE.md`, `DECISIONS.md`.
+### P1
+- [x] HOLD in C + host test (15/15) + bridge test (7/7)
+- [x] `explain/` astronaut language, self-test PASS (every sentence carries a number, no diagnosis words)
+- [x] DONKI radiation panel (214 SEP events), bone + sleep reference panels (labelled "not crew data")
+- [ ] `docs/` drafts — in progress
 
-## How to reproduce everything (WSL Ubuntu)
+### P2
+- [ ] WASM — not started
+- [~] Board tables generated (`board/tlm_watch_model_tbl.c`, `..._slow_tbl.c`); RUNBOOK not written
+
+## Things found on the way (all in DECISIONS.md)
+- **D-13** vendor `DIFF` = counter semantics (unsigned, masked): a 1-LSB drop reads +65535. Fine for counters, wrong for HR. Not used.
+- **D-08** PPG-DaLiA has no SpO₂, so fault 5 runs on HR.
+- **D-17/18** thresholds were being set by packet-loss spikes. Fixed using validation only. Range limits made personal for fairness.
+- Panel bug fixed: range limits were not shifted to the person's baseline in the export.
+
+## Reproduce everything (WSL Ubuntu, ~3 min after download)
 
 ```bash
 cd /mnt/c/Users/orhun/crewwatch
-bash scripts/setup_vendor.sh
+bash scripts/setup_vendor.sh          # GECTI + 15/15 + 7/7
 python3 sim/fetch_donki.py
-# PPG-DaLiA: data/raw/dalia/ppg_dalia.zip from UCI #495, unzip, then:
-python3 sim/prep_dalia.py --raw data/raw/dalia/PPG_FieldStudy --out data/dalia_1hz
+bash scripts/prep_dalia.sh            # needs data/raw/dalia/data.zip (UCI #495)
 python3 model/build_model.py
-python3 eval/evaluate.py
+python3 eval/evaluate.py --k-events 15
 python3 eval/report.py
 python3 web/export_demo.py
-# open web/index.html in a browser (works offline, file://)
 ```
