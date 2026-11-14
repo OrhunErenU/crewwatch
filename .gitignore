@@ -1,0 +1,9 @@
+# raw third-party datasets: downloaded by scripts, not redistributed
+data/raw/
+# host-built shared libraries
+*.so
+*.dll
+__pycache__/
+*.pyc
+# vendor repos are cloned by scripts/fetch_vendor.sh, not committed
+vendor/

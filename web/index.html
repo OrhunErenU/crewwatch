@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CrewWatch</title>
+<!-- CrewWatch panel. Static, no build step, no network. Scores are NOT computed
+     here: web/data.js holds what the flight C code (tinyinfer) produced on the
+     host. Written with AI assistance (Claude Code), see AI_USE.md. -->
+<style>
+:root{
+  --bg:#0d1117; --panel:#151b23; --panel2:#1b232d; --line:#2a3441; --text:#e6edf3; --muted:#8b98a8;
+  --ok:#3fb950; --warn:#d29922; --bad:#f85149; --accent:#58a6ff; --fault:rgba(248,81,73,.13);
+  --range:#a371f7; --hold:#d29922; --cw:#58a6ff;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:baseline;gap:16px;padding:14px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+header h1{margin:0;font-size:20px;letter-spacing:.5px}
+header .tag{color:var(--muted);font-size:13px}
+header .met{margin-left:auto;font-family:var(--mono);color:var(--muted);font-size:13px}
+main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;padding:14px 20px;max-width:1500px;margin:0 auto}
+@media (max-width:1000px){main{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card h2{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600}
+.crew{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+@media (max-width:700px){.crew{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.member{cursor:pointer;border-left:4px solid var(--ok);transition:background .15s}
+.member:hover{background:var(--panel2)}
+.member.sel{outline:2px solid var(--accent)}
+.member .nm{font-weight:600}
+.member .st{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.member .vit{font-family:var(--mono);font-size:13px;margin-top:4px}
+.member.alert{border-left-color:var(--bad)}
+.member.watch{border-left-color:var(--warn)}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+button,select{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--accent)}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--accent)}
+.clock{font-family:var(--mono);min-width:90px}
+canvas{width:100%;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.alertcard{border-left:4px solid var(--line);min-height:150px}
+.alertcard.on{border-left-color:var(--bad)}
+.alertcard .hd{font-weight:600;margin-bottom:6px}
+.alertcard ul{margin:6px 0 0 18px;padding:0}
+.alertcard li{margin:3px 0}
+.alertcard .act{color:var(--warn)}
+.side{display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:0 20px 20px;max-width:1500px;margin:0 auto}
+@media (max-width:1000px){.row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}}
+.big{font-family:var(--mono);font-size:26px}
+.small{font-size:12px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:600}
+td.win{color:var(--ok);font-weight:600}
+.pill{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;font-family:var(--mono);border:1px solid var(--line)}
+.pill.on{background:var(--bad);border-color:var(--bad);color:#fff}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.vs div{background:var(--panel2);border-radius:8px;padding:8px;text-align:center}
+.vs .lbl{font-size:11px;color:var(--muted)}
+.vs .val{font-family:var(--mono);font-size:15px;margin-top:2px}
+footer{color:var(--muted);font-size:12px;padding:0 20px 24px;max-width:1500px;margin:0 auto}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <h1>CrewWatch</h1>
+  <span class="tag">On-board early warning for crew wearables — integer, deterministic, flight-code scores</span>
+  <span class="met" id="met">MET --:--:--</span>
+</header>
+
+<main>
+  <section>
+    <div class="crew" id="crew"></div>
+    <div class="card">
+      <div class="controls">
+        <button id="play" aria-label="Play or pause">▶ Play</button>
+        <select id="speed" aria-label="Playback speed">
+          <option value="10">10×</option><option value="60" selected>60×</option>
+          <option value="300">300×</option><option value="1">1×</option>
+        </select>
+        <button id="jump" title="Jump 60 s before the next injected fault">⏭ Next fault</button>
+        <input type="range" id="scrub" min="0" max="1" value="0" aria-label="Replay position">
+        <span class="clock" id="clock">00:00:00</span>
+      </div>
+      <canvas id="chart" height="520"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--fault)"></i>injected fault (ground truth)</span>
+        <span><i style="background:var(--range)"></i>range check alarm</span>
+        <span><i style="background:var(--hold)"></i>range + HOLD rule alarm</span>
+        <span><i style="background:var(--cw)"></i>CrewWatch alarm</span>
+        <span>score axis is logarithmic; dashed = alert threshold</span>
+      </div>
+    </div>
+  </section>
+
+  <aside class="side">
+    <div class="card alertcard" id="alert">
+      <h2>Alert for <span id="alertWho">—</span></h2>
+      <div id="alertBody" class="small">No alert. Press play.</div>
+    </div>
+    <div class="card">
+      <h2>Same data, two monitors</h2>
+      <div class="small">Right now, on the selected crew member:</div>
+      <div class="vs">
+        <div><div class="lbl">Per-channel range check</div><div class="val" id="vsRange">—</div></div>
+        <div><div class="lbl">CrewWatch</div><div class="val" id="vsCw">—</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Why on board?</h2>
+      <div class="small">One-way light time to Earth</div>
+      <div style="display:flex;gap:10px;align-items:center;margin:6px 0">
+        <select id="dest" aria-label="Destination">
+          <option value="1.3">Moon (~1.3 s)</option>
+          <option value="180">Mars, closest (~3 min)</option>
+          <option value="750" selected>Mars, typical (~12.5 min)</option>
+          <option value="1320">Mars, farthest (~22 min)</option>
+        </select>
+      </div>
+      <div class="small">An alert sent to ground now gets an answer back at the earliest in</div>
+      <div class="big" id="rtt">--:--</div>
+      <div class="small">…and not at all during solar conjunction blackouts. The warning has to be produced on the spacecraft.</div>
+    </div>
+  </aside>
+</main>
+
+<div class="row">
+  <div class="card">
+    <h2>Radiation (NASA DONKI)</h2>
+    <canvas id="rad" height="150"></canvas>
+    <div class="small" id="radTxt"></div>
+  </div>
+  <div class="card">
+    <h2>Bone (reference trend)</h2>
+    <canvas id="bone" height="150"></canvas>
+    <div class="small">Published loss rate band 1–1.5 %/month (Mir DXA). Not crew data: no bone sensor in this demo.</div>
+  </div>
+  <div class="card">
+    <h2>Sleep (reference)</h2>
+    <div class="big">6.1 h <span class="small">/ 8.5 h scheduled</span></div>
+    <div class="small">Mean measured sleep on ISS (Barger et al., Lancet Neurol 2014). Not crew data: PPG-DaLiA has no sleep recordings.</div>
+  </div>
+  <div class="card">
+    <h2>Honest results (test crew)</h2>
+    <div id="results"></div>
+  </div>
+</div>
+
+<footer>
+  Data: PPG-DaLiA (Reiss et al. 2019, CC BY 4.0) with faults injected on top of the real recordings; NASA CCMC DONKI SEP events.
+  Scores replayed from the integer flight inference code (tinyinfer) run on the host. Early-warning / check-your-sensor language only — not a diagnosis.
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+"use strict";
+const D = window.CREWWATCH;
+if(!D){document.body.innerHTML='<p style="padding:20px">web/data.js missing — run web/export_demo.py</p>';return;}
+const css = getComputedStyle(document.documentElement);
+const C = n => css.getPropertyValue(n).trim();
+let sel = 0, pos = 0, playing = false, last = null;
+const crew = D.crew;
+const N = Math.max(...crew.map(c => c.score.length));
+const scrub = document.getElementById('scrub');
+scrub.max = N - 1;
+
+function hms(s){s=Math.max(0,Math.floor(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return [h,m,x].map(v=>String(v).padStart(2,'0')).join(':');}
+function val(c, key, i){const v=c.series[key][i];if(v==null)return null;const ch=D.channels.find(x=>x.key===key);return v*ch.scale;}
+
+// ---------- crew cards
+const crewEl = document.getElementById('crew');
+crew.forEach((c, i) => {
+  const d = document.createElement('div');
+  d.className = 'card member'; d.tabIndex = 0;
+  d.innerHTML = `<div class="nm">${c.id}</div><div class="st">${c.subject}</div><div class="vit"></div><div class="st last">no alert</div>`;
+  d.onclick = () => {sel = i; draw();};
+  d.onkeydown = e => {if(e.key==='Enter'){sel=i;draw();}};
+  crewEl.appendChild(d);
+});
+
+function lastAlert(c, i){let a=null;for(const x of c.alerts){if(x.t<=i)a=x;else break;}return a;}
+
+function updateCards(){
+  [...crewEl.children].forEach((d, k) => {
+    const c = crew[k], i = Math.min(pos, c.score.length-1);
+    const on = c.crewwatch[i], recent = c.crewwatch.slice(Math.max(0,i-300), i+1).some(Boolean);
+    d.className = 'card member' + (k===sel?' sel':'') + (on?' alert':recent?' watch':'');
+    const hr = val(c,'hr_x10',i), t = val(c,'temp_x100',i);
+    d.querySelector('.vit').textContent = `HR ${hr==null?'--':hr.toFixed(0)} bpm · ${t==null?'--':t.toFixed(1)} °C`;
+    const a = lastAlert(c, i);
+    d.querySelector('.last').textContent = a ? `last alert ${hms(i-a.t)} ago` : 'no alert';
+  });
+}
+
+// ---------- main chart
+const cv = document.getElementById('chart');
+function fit(c){const r=c.getBoundingClientRect();const dpr=window.devicePixelRatio||1;const h=+c.getAttribute('height');c.width=r.width*dpr;c.height=h*dpr;const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);return [g,r.width,h];}
+
+const LANES = [
+  {key:'hr_x10', label:'Heart rate', unit:'bpm'},
+  {key:'rmssd_x10', label:'HRV RMSSD', unit:'ms'},
+  {key:'act_mg', label:'Activity', unit:'mg'},
+  {key:'temp_x100', label:'Skin temp', unit:'°C'},
+  {key:'eda_x1000', label:'Skin conductance', unit:'µS'},
+];
+
+function draw(){
+  const c = crew[sel], n = c.score.length, i = Math.min(pos, n-1);
+  const [g, W, H] = fit(cv);
+  g.clearRect(0,0,W,H);
+  const L = 120, R = 10, top = 4;
+  const laneH = 62, scoreH = 110, stripH = 12, gap = 6;
+  const x = t => L + (W-L-R) * t / (n-1);
+  // fault shading
+  g.fillStyle = C('--fault');
+  for(const f of c.faults){g.fillRect(x(f.onset), top, Math.max(2, x(f.end)-x(f.onset)), H-top);}
+  g.font = '12px system-ui'; g.textBaseline = 'middle';
+  let y = top;
+  // vital lanes (only up to cursor = "live" view; faint future)
+  LANES.forEach(ln => {
+    const ch = D.channels.find(q=>q.key===ln.key);
+    const arr = c.series[ln.key];
+    let lo=Infinity, hi=-Infinity;
+    for(const v of arr){if(v!=null){if(v<lo)lo=v;if(v>hi)hi=v;}}
+    if(hi===lo){hi+=1;lo-=1;}
+    const yy = v => y + laneH - 4 - (laneH-8)*(v-lo)/(hi-lo);
+    g.strokeStyle = C('--line'); g.beginPath(); g.moveTo(L,y+laneH); g.lineTo(W-R,y+laneH); g.stroke();
+    const step = Math.max(1, Math.floor(n/(W-L)));
+    for(const [from,to,alpha] of [[0,i,1],[i,n-1,.18]]){
+      g.globalAlpha = alpha; g.strokeStyle = C('--text'); g.lineWidth = 1; g.beginPath(); let pen=false;
+      for(let t=from;t<=to;t+=step){const v=arr[t];if(v==null){pen=false;continue;}const px=x(t),py=yy(v);if(!pen){g.moveTo(px,py);pen=true;}else g.lineTo(px,py);}
+      g.stroke();
+    }
+    g.globalAlpha = 1;
+    g.fillStyle = C('--muted'); g.fillText(ln.label, 6, y+14);
+    const cur = arr[i];
+    g.fillStyle = C('--text'); g.font='13px '+C('--mono');
+    g.fillText(cur==null?'--':(cur*ch.scale).toFixed(ln.key==='act_mg'?0:ln.key==='hr_x10'?1:2)+' '+ln.unit, 6, y+34);
+    g.font = '12px system-ui';
+    y += laneH + gap;
+  });
+  // score lane, log scale
+  const thr = D.threshold;
+  let smax = thr*10, smin = 1;
+  for(const s of c.score){if(s!=null&&s>smax)smax=s;}
+  const ly = s => y + scoreH - 4 - (scoreH-8) * (Math.log10(Math.max(s,smin)) - Math.log10(smin)) / (Math.log10(smax)-Math.log10(smin));
+  g.strokeStyle = C('--line'); g.beginPath(); g.moveTo(L,y+scoreH); g.lineTo(W-R,y+scoreH); g.stroke();
+  g.setLineDash([5,4]); g.strokeStyle = C('--bad'); g.beginPath(); g.moveTo(L,ly(thr)); g.lineTo(W-R,ly(thr)); g.stroke(); g.setLineDash([]);
+  const step = Math.max(1, Math.floor(n/(W-L)));
+  for(const [from,to,alpha] of [[0,i,1],[i,n-1,.18]]){
+    g.globalAlpha=alpha; g.strokeStyle = C('--cw'); g.beginPath(); let pen=false;
+    for(let t=from;t<=to;t+=step){let s=c.score[t];if(s==null){pen=false;continue;}
+      for(let u=t+1;u<Math.min(t+step,to+1);u++){if(c.score[u]!=null&&c.score[u]>s)s=c.score[u];}
+      const px=x(t),py=ly(s);if(!pen){g.moveTo(px,py);pen=true;}else g.lineTo(px,py);}
+    g.stroke();
+  }
+  g.globalAlpha=1;
+  g.fillStyle = C('--muted'); g.fillText('CrewWatch score', 6, y+14);
+  g.fillStyle = C('--text'); g.font='13px '+C('--mono');
+  const sc = c.score[i]; g.fillText(sc==null?'--':(sc/thr).toFixed(1)+'× thr', 6, y+34); g.font='12px system-ui';
+  y += scoreH + gap + 4;
+  // alarm strips
+  [['range','Range check','--range'],['range_hold','Range + HOLD','--hold'],['crewwatch','CrewWatch','--cw']].forEach(([k,lbl,col]) => {
+    g.fillStyle = C('--muted'); g.fillText(lbl, 6, y+stripH/2);
+    g.fillStyle = C('--panel2'); g.fillRect(L, y, W-L-R, stripH);
+    g.fillStyle = C(col);
+    const arr = c[k]; let s0=-1;
+    for(let t=0;t<=i+1;t++){const on=t<=i&&arr[t];if(on&&s0<0)s0=t;if(!on&&s0>=0){g.fillRect(x(s0),y,Math.max(2,x(t)-x(s0)),stripH);s0=-1;}}
+    y += stripH + 6;
+  });
+  // fault labels
+  g.fillStyle = C('--bad'); g.font='11px system-ui';
+  for(const f of c.faults){g.fillText(f.name, x(f.onset)+3, H-6);}
+  // cursor
+  g.strokeStyle = C('--accent'); g.lineWidth = 1.5; g.beginPath(); g.moveTo(x(i),top); g.lineTo(x(i),H); g.stroke();
+
+  // side widgets
+  document.getElementById('clock').textContent = hms(i);
+  document.getElementById('met').textContent = 'replay ' + hms(i) + ' · ' + c.id;
+  scrub.value = pos;
+  document.getElementById('vsRange').innerHTML = c.range[i] ? '<span class="pill on">ALARM</span>' : '<span class="pill">quiet</span>';
+  document.getElementById('vsCw').innerHTML = c.crewwatch[i] ? '<span class="pill on">ALARM</span>' : '<span class="pill">quiet</span>';
+  const a = lastAlert(c, i), box = document.getElementById('alert');
+  document.getElementById('alertWho').textContent = c.id;
+  if(a && i - a.t < 600){
+    box.classList.add('on');
+    document.getElementById('alertBody').innerHTML =
+      `<div class="hd">${a.level} · ${hms(i-a.t)} ago (t=${hms(a.t)})</div><div class="small">${a.headline}</div>` +
+      '<ul>' + a.lines.map(l=>`<li>${l}</li>`).join('') + '</ul>' +
+      '<ul>' + a.actions.map(l=>`<li class="act">${l}</li>`).join('') + '</ul>';
+  } else {
+    box.classList.remove('on');
+    document.getElementById('alertBody').innerHTML = a ? `<div class="small">Last alert at ${hms(a.t)}.</div>` : '<div class="small">No alert so far.</div>';
+  }
+  updateCards();
+}
+
+// ---------- playback
+const playBtn = document.getElementById('play');
+playBtn.onclick = () => {playing = !playing; playBtn.textContent = playing ? '❚❚ Pause' : '▶ Play'; last = null; if(playing) requestAnimationFrame(loop);};
+scrub.oninput = () => {pos = +scrub.value; draw();};
+document.getElementById('jump').onclick = () => {
+  const c = crew[sel]; const nx = c.faults.map(f=>f.onset).filter(o=>o-60>pos+1).sort((a,b)=>a-b)[0];
+  pos = nx != null ? Math.max(0, nx-60) : (c.faults.length ? Math.max(0,c.faults[0].onset-60) : 0); draw();
+};
+function loop(ts){
+  if(!playing) return;
+  if(last != null){pos = Math.min(N-1, pos + (ts-last)/1000 * (+document.getElementById('speed').value));}
+  last = ts;
+  if(pos >= N-1){playing=false; playBtn.textContent='▶ Play';}
+  pos = Math.floor(pos*1000)/1000;
+  const p = pos; pos = Math.floor(p); draw(); pos = p;
+  requestAnimationFrame(loop);
+}
+window.addEventListener('resize', () => {draw(); drawRad(); drawBone();});
+document.addEventListener('keydown', e => {if(e.code==='Space' && e.target.tagName!=='SELECT'){e.preventDefault();playBtn.click();}});
+
+// ---------- comm delay
+function rtt(){const s=+document.getElementById('dest').value*2;document.getElementById('rtt').textContent = s<60 ? s.toFixed(1)+' s' : Math.floor(s/60)+' min '+String(Math.round(s%60)).padStart(2,'0')+' s';}
+document.getElementById('dest').onchange = rtt; rtt();
+
+// ---------- radiation: GCR baseline (RAD cruise) + DONKI SEP markers over last 180 days
+function drawRad(){
+  const cvr = document.getElementById('rad'); const [g,W,H] = fit(cvr);
+  const days = 180, rate = 1.84; // mSv/day, MSL RAD cruise (Zeitlin 2013)
+  const end = new Date(Math.max(...D.donki_sep.map(e=>Date.parse(e.time)))); const start = new Date(end - days*864e5);
+  const ev = D.donki_sep.filter(e => Date.parse(e.time) >= +start);
+  const x = d => 30 + (W-40)*d/days, y = v => H-18 - (H-30)*v/(rate*days);
+  g.strokeStyle=C('--line'); g.strokeRect(30,8,W-40,H-26);
+  g.strokeStyle=C('--accent'); g.beginPath(); g.moveTo(x(0),y(0)); g.lineTo(x(days),y(rate*days)); g.stroke();
+  g.fillStyle=C('--warn');
+  ev.forEach(e => {const d=(Date.parse(e.time)-start)/864e5; g.fillRect(x(d)-1,8,2,H-26);});
+  g.fillStyle=C('--muted'); g.font='11px system-ui'; g.fillText('0', 18, H-18); g.fillText(Math.round(rate*days)+' mSv', 32, 18);
+  document.getElementById('radTxt').textContent =
+    `Line: cumulative GCR dose at 1.84 mSv/day (MSL/RAD cruise). Orange: ${ev.length} real SEP events from NASA DONKI, ${start.toISOString().slice(0,10)} – ${end.toISOString().slice(0,10)}, replayed as if in cruise. SEP dose is not modelled (no per-event dose in DONKI) — the panel flags the event, it does not invent a number.`;
+}
+function drawBone(){
+  const c = document.getElementById('bone'); const [g,W,H] = fit(c);
+  const months = 30; const x = m => 30 + (W-40)*m/months, y = p => 10 + (H-30)*p/(1.5*months);
+  g.strokeStyle=C('--line'); g.strokeRect(30,8,W-40,H-26);
+  g.fillStyle='rgba(210,153,34,.25)'; g.beginPath(); g.moveTo(x(0),y(0)); g.lineTo(x(months),y(1.0*months)); g.lineTo(x(months),y(1.5*months)); g.closePath(); g.fill();
+  g.fillStyle=C('--muted'); g.font='11px system-ui'; g.fillText('0 %',4,14); g.fillText('-45 %',2,H-18); g.fillText('30-month Mars mission', x(months)-130, 22);
+}
+
+// ---------- results table
+(function(){
+  const r = D.results.by_type, ft = D.fault_types, fa = D.results.fa;
+  let h = '<table><tr><th>Fault</th><th>Range</th><th>+HOLD</th><th>CrewW.</th></tr>';
+  Object.keys(r).forEach(t => {
+    const row = r[t], v = ['range','range_hold','crewwatch'].map(k => row[k].rate);
+    const best = Math.max(...v);
+    h += `<tr><td>${t}. ${ft[t].name}</td>` + v.map(q => `<td class="${q===best&&best>0?'win':''}">${Math.round(q*100)}%</td>`).join('') + '</tr>';
+  });
+  h += `<tr><td>false alarms (clean)</td>${['range','range_hold','crewwatch'].map(k=>`<td>${(fa[k]*100).toFixed(2)}%</td>`).join('')}</tr></table>`;
+  h += `<div class="small" style="margin-top:6px">Detection rate per injected event, thresholds at the same false-alarm budget (${(D.results.model.fa_budget*100).toFixed(1)} % of validation ticks). Model ${D.results.model.F} features, ${D.results.model.weight_bytes}-byte int8 table.</div>`;
+  document.getElementById('results').innerHTML = h;
+})();
+
+draw(); drawRad(); drawBone();
+})();
+</script>
+</body>
+</html>
