@@ -1,0 +1,141 @@
+# Space Apps 2026 project page: final text
+
+Copy each block into the field with the same name. Written with AI assistance and disclosed in
+`AI_USE.md`. Numbers come from `eval/RESULTS.md`. If the evaluation is re-run, check them again.
+
+---
+
+## Project Name
+
+CrewWatch
+
+## High-Level Project Summary
+
+On the way to Mars, a message to Earth takes up to 22 minutes one way, and some weeks there is no
+link at all. If an astronaut's wearable sensor fails, nobody on the ground will notice in time, and a
+broken sensor can look perfectly normal. A heart-rate sensor that freezes keeps sending a believable
+number. Every value stays inside its limits, so the standard limit check on the spacecraft says
+nothing. CrewWatch runs on the spacecraft's own computer. Every second it checks whether each sensor's
+value is still moving, whether each sensor is still talking, and whether the readings make sense
+together. Then it tells the astronaut in plain words what to check. It is written in integer-only C,
+built on flight software we wrote earlier, so the same input always gives the same alert on any
+computer. We tested it on real recordings of 15 people and we report where it fails as well as where
+it works.
+
+## Link to Project Demo
+
+https://github.com/OrhunErenU/crewwatch/blob/main/docs/crewwatch-demo.mp4
+
+## Link to Final Project
+
+https://github.com/OrhunErenU/crewwatch
+
+## Detailed Project Description
+
+**What it does**
+
+CrewWatch watches five wearable channels: heart rate, heart-rate variability, activity, skin
+temperature and skin conductance. Every second it builds nine numbers from them:
+
+- the five levels, each compared with that astronaut's own baseline;
+- HOLD: how many seconds heart rate (and HRV) have not changed at all;
+- AGE: how many seconds since each sensor last sent data.
+
+A Mahalanobis model, stored as a 162-byte table of 8-bit integers, scores these nine numbers together.
+A second copy of the same model scores their 64-second average. When a score crosses its threshold,
+CrewWatch shows an alert card, for example:
+
+> Heart rate has read exactly 115.9 bpm for 8 s while data keeps arriving (longest seen in normal
+> data: 8 s). Sensor may be frozen: re-seat or restart the chest strap.
+
+Every sentence on the card comes from a number the software measured. CrewWatch never says what is
+wrong with the astronaut. It says what to check.
+
+**How we tested it**
+
+We did not simulate healthy people. Normal data comes from PPG-DaLiA, real recordings of 15 people
+going through a normal day (stairs, cycling, walking, driving, eating). We trained on 8 people, tuned
+thresholds on 3, and kept 4 people aside as our "crew". On top of the crew's real recordings we
+injected five kinds of problems and compared three monitors. All three were tuned to the same
+false-alarm budget:
+
+| Problem injected | Limit check | Limit check + "unchanged" rule | CrewWatch |
+|---|---|---|---|
+| Heart-rate sensor frozen | 13 % (chance level) | 100 % | 100 % |
+| Chest strap stops sending | 8 % (chance level) | 100 % (median 8 s) | 100 % (median 3 s) |
+| Heart rate falls to 35 bpm within a minute | **77 %** | **77 %** | 32 % |
+| Heart rate does not follow activity | no better than chance | no better than chance | no better than chance |
+| Slow fever-like drift | no better than chance | no better than chance | no better than chance |
+| False alarms on the 4 new people | 2.9 % of seconds (104/hour) | 2.9 % (104/hour) | **0.35 % (12.5/hour)** |
+
+What this tells us:
+
+- A limit check cannot see a frozen or silent sensor. We saw the same thing on real flight hardware
+  before the hackathon: 316 samples, 0 alarms.
+- A simple "value has not changed" rule catches those faults too, and we say so. CrewWatch does the
+  same job inside one model, reacts faster to a silent sensor, and raised about 8 times fewer false
+  alarms on people it had never seen.
+- When one channel clearly leaves its normal range (bradycardia), the plain limit check wins. The two
+  should run side by side.
+- Slow changes, like a fever building over half an hour, were not caught by any of the three monitors
+  with these wrist sensors at one reading per second. We are not hiding that. It is the next problem
+  to solve.
+
+**Why integer-only code matters**
+
+The same C code, compiled once for a normal PC and once for a web browser (WebAssembly), produced the
+same 67,388 scores bit for bit. The panel checks this again every time it opens. The inference engine
+underneath was measured on a flight-class processor without a floating-point unit in earlier work:
+bit-exact against the ground computer, and 0.64 % of a one-second time budget. We did not have that
+board during the hackathon, so CrewWatch itself was not run on it.
+
+The model is updated on the ground. Only the small table is sent to the spacecraft. Nothing is trained
+in orbit.
+
+**What we hope to achieve**
+
+NASA's own plans for Mars move medical decisions from Mission Control to the crew (Earth-Independent
+Medical Operations). Decision-support tools for the crew medical officer depend on sensor data that
+can be trusted. CrewWatch is a small, checkable layer underneath them. It tells the crew when a
+sensor stopped telling the truth.
+
+**Tools**
+
+C (flight inference library `tinyinfer`, cFS feature code), Python (no machine-learning framework,
+only the standard library plus numpy for loading the dataset), Emscripten/WebAssembly, plain
+HTML/JavaScript for the panel (works offline), WSL Ubuntu with gcc.
+
+**What existed before the hackathon**
+
+The integer inference engine and the cFS feature code were written by a team member during an
+internship at TÜBİTAK UZAY (July–August 2026) and are open source. We reused them without changes.
+During the hackathon we built the HOLD feature, the wearable data pipeline, the fault injector, the
+evaluation, the alert text, the WebAssembly build and the panel. Details: `PRIOR_WORK.md`.
+
+## Use of Super Intelligence (SI)
+
+Yes. We used an AI coding assistant (Claude Code, Anthropic) to write most of the hackathon code, to
+draft this page and the video captions, and to check sources. The idea, the plan and the decision to
+compare against simple baselines came from the team before the assistant was used. The team ran and
+reviewed the results. Every source file written with AI help says so in its header. `AI_USE.md` lists
+everything. No images, audio or data were generated by AI. The demo video is a screen recording of
+our own software.
+
+## NASA Data
+
+- **DONKI** (NASA Community Coordinated Modeling Center): 214 Solar Energetic Particle events from
+  January 2024 to November 2026, shown on the radiation panel.
+- **Mars Science Laboratory / RAD** published dose rates (Zeitlin et al. 2013; Hassler et al. 2014)
+  for the radiation baseline.
+- NASA Human Research Program and NTRS documents for the problem framing: EIMO Concept of Operations
+  (NTRS 20240001402, 20250000009).
+
+## Space Agency Partner Data and Other References
+
+- PPG-DaLiA: Reiss, Indlekofer, Schmidt, Van Laerhoven, *Sensors* 19(14):3079, 2019. UCI
+  doi:10.24432/C53890, CC BY 4.0. All physiological data.
+- Our own board telemetry dataset: doi:10.5281/zenodo.22045173 (CC BY 4.0).
+- Karjalainen & Viitasalo 1986 (heart rate rise with fever); Barger et al. 2014 (astronaut sleep);
+  Lang et al. 2004 (bone loss); van Hees et al. 2013 (activity metric); Zhang, Liu, Kato 2018
+  (wearable sensor faults).
+- Full list with every number used: `data/SOURCES.md`.

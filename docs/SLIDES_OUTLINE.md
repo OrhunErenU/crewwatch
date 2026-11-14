@@ -1,4 +1,4 @@
-# DRAFT — rewrite in your own words
+# Slides outline (≤ 7 slides, only if the demo is a deck instead of the video)
 
 Guide limit if the slides ARE the demo: **≤ 7 slides including title and intro**. English.
 

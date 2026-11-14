@@ -33,7 +33,7 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 - [x] HOLD in C + host test (15/15) + bridge test (7/7)
 - [x] `explain/` astronaut language, self-test PASS (every sentence carries a number, no diagnosis words)
 - [x] DONKI radiation panel (214 SEP events), bone + sleep reference panels (labelled "not crew data")
-- [x] `docs/` drafts (DRAFT-marked): `PROJECT_PAGE_DRAFT.md`, `VIDEO_SCRIPT.md` (≤ 30 s), `SLIDES_OUTLINE.md` (≤ 7)
+- [x] `docs/PROJECT_PAGE.md` (final text for every Space Apps field), `VIDEO_SCRIPT.md`, `SLIDES_OUTLINE.md`
 
 ### P2
 - [x] **WASM bit-exact** — `node tests/test_wasm_bitexact.js` → `PASS -- browser (wasm32) and host (x86-64 gcc) give bit-identical scores on 67388 score slots` (67 136 non-null; negative control: Bias+1 LSB → 15 630 differ). Panel re-runs this live in the browser (45 ms) and shows the count. Build: `bash scripts/install_emsdk.sh` once, then `bash web/wasm/build_wasm.sh` (WSL).
@@ -51,13 +51,13 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 - Added a 30-s scripted demo mode for recording (`?demo`, or the header button).
 
 ## What only the team can do (in this order)
-1. **Decide the pitch** around the measured result (D-20, `eval/READING.md`). Don't use the roadmap's
-   original "types 3–4 only the joint model catches" line; the data does not support it.
-2. **Rewrite** `docs/PROJECT_PAGE_DRAFT.md`, `docs/VIDEO_SCRIPT.md`, `docs/SLIDES_OUTLINE.md`,
-   `eval/READING.md` in your own words (they start with `DRAFT — rewrite…`).
-3. **Record the 30-s video:** open `web/index.html?demo&team=YourTeamName`, press F11, start Win+Alt+R,
-   press F5. The built-in demo runs exactly 30 s with English captions (`docs/VIDEO_SCRIPT.md`). Panel only,
-   no board. Upload, make the link public, test it in a private window.
+1. ~~Pitch~~ **done (D-24):** "a sensor-health watchdog that runs on the spacecraft", built on the measured
+   result, limits stated (`docs/PROJECT_PAGE.md`).
+2. ~~Texts~~ **done:** final English text for every field in `docs/PROJECT_PAGE.md`, written with AI help at
+   the team lead's request and disclosed in the SI field and `AI_USE.md`. Read it once before submitting.
+3. ~~Video~~ **done:** `docs/crewwatch-demo.mp4`, 29.1 s, 1920×1024, recorded automatically from the panel
+   (`node --experimental-websocket scripts/record_demo.js "TEDU team"`). Team name on the title card is
+   "TEDU team"; re-run with your real team name if it differs. Public link: GitHub (see project page).
 4. ~~GitHub~~ **done:** pushed to https://github.com/OrhunErenU/crewwatch (public; renamed from `crewwatch-`, old URL redirects).
    `vendor/` and `data/raw/` are git-ignored by design. The internal plan, the local asset list and
    `.claude/` were removed from the public repo (kept locally, git-ignored) and from the whole git

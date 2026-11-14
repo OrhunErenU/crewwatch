@@ -1,8 +1,8 @@
 ## Reading this table honestly
 
-*(Written by hand after looking at the numbers. Rewrite in your own words before using it on a slide.)*
+*(Written after looking at the numbers, with AI assistance; see `AI_USE.md`.)*
 
-**What the roadmap expected:** types 1–2 caught by the simple rule too, types 3–4 caught only by the
+**What our plan expected:** types 1–2 caught by the simple rule too, types 3–4 caught only by the
 joint model, type 5 fastest with the range check.
 
 **What we measured:**
@@ -18,7 +18,7 @@ joint model, type 5 fastest with the range check.
    so HOLD fired). With realistic jitter on the plateau, that advantage went away.
 3. **Types 3–4 (HR not following activity, slow fever-like drift):** **no detector does better than
    chance**, CrewWatch included. The fever-like drift sweep stays flat for CrewWatch from 0.5 to 3 °C.
-   The roadmap's main hypothesis is **not supported** by this data at 1 Hz. Likely reasons: (a) a wrist
+   Our main hypothesis is **not supported** by this data at 1 Hz. Likely reasons: (a) a wrist
    accelerometer is a weak proxy for exertion (cycling barely moves the wrist while HR is high), so the
    HR↔activity coupling the model would need is weak in the training data; (b) a +8.5 bpm shift is small
    next to the ±50 bpm swings that normal daily activity causes.
@@ -31,7 +31,7 @@ joint model, type 5 fastest with the range check.
    source of the misses.
 
 **What this means for the pitch:** the two layers *do* complement each other, but not in the way the
-roadmap guessed. Limit checks handle clear range violations. CrewWatch handles **sensor-health faults**
+plan guessed. Limit checks handle clear range violations. CrewWatch handles **sensor-health faults**
 (frozen or silent wearables, which limit checks cannot see) with a deterministic integer model that
 raised fewer false alarms on new people. **Slow physiological drift is not solved by a 1 Hz per-tick
 model with these sensors.** We say so, and list it as the next problem (better exertion signal,

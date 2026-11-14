@@ -8,6 +8,9 @@ spacecraft computer. It flags wearable sensor faults that per-channel limit chec
 (frozen or silent sensors) and tells the astronaut what to check. Every score comes from
 integer-only, bit-reproducible flight C code (no FPU needed).
 
+**Demo video (29 s):** [`docs/crewwatch-demo.mp4`](docs/crewwatch-demo.mp4), a screen recording of the panel
+(`web/index.html?demo`), recorded automatically with `scripts/record_demo.js`.
+
 **Start here:** [`PROGRESS.md`](PROGRESS.md) · results [`eval/RESULTS.md`](eval/RESULTS.md) ·
 limits [`LIMITATIONS.md`](LIMITATIONS.md) · decisions [`DECISIONS.md`](DECISIONS.md) ·
 prior work [`PRIOR_WORK.md`](PRIOR_WORK.md) · AI use [`AI_USE.md`](AI_USE.md) ·

@@ -1,4 +1,4 @@
-# DRAFT — rewrite in your own words
+# Demo video (≤ 30 s)
 
 ## Fastest way to record (built-in demo mode)
 1. Open `web/index.html?demo&team=YourTeamName` in Chrome/Edge (works from the file, no server needed).

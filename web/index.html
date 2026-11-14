@@ -476,7 +476,34 @@ setTimeout(function(){
   }
   document.getElementById('demoBtn').onclick = start;
   document.addEventListener('keydown', e => { if (e.key === 'Escape') stop(); });
-  if (qs.has('demo')) setTimeout(start, 600);
+  // ?record: tooling for docs/crewwatch-demo.mp4 only. Captures THIS tab (getDisplayMedia with
+  // preferCurrentTab), runs the 30-s demo, posts the file to scripts/record_server.py.
+  if (qs.has('record')) {
+    const btn = document.createElement('button');
+    btn.id = 'recBtn'; btn.textContent = 'Start recording';
+    btn.style.cssText = 'position:fixed;inset:0;margin:auto;width:320px;height:90px;font-size:24px;z-index:99';
+    document.body.appendChild(btn);
+    btn.onclick = async () => {
+      btn.remove();
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: { frameRate: 30 }, audio: false, preferCurrentTab: true, selfBrowserSurface: 'include' });
+      const types = ['video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1', 'video/mp4', 'video/webm;codecs=vp9', 'video/webm'];
+      const mime = types.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
+      const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8e6 });
+      const parts = [];
+      rec.ondataavailable = e => { if (e.data.size) parts.push(e.data); };
+      rec.onstop = async () => {
+        stream.getTracks().forEach(t => t.stop());
+        const blob = new Blob(parts, { type: mime.split(';')[0] || 'video/webm' });
+        await fetch('/upload', { method: 'POST', headers: { 'Content-Type': blob.type }, body: blob });
+        document.title = 'CrewWatch recorded';
+      };
+      await new Promise(r => setTimeout(r, 300));
+      rec.start(1000);
+      start();
+      setTimeout(() => rec.stop(), 29600);   // guide limit is 30 s; MediaRecorder adds a few frames
+    };
+  } else if (qs.has('demo')) setTimeout(start, 600);
 })();
 })();
 </script>
