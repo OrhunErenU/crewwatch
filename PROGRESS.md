@@ -58,8 +58,7 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 3. **Record the 30-s video:** open `web/index.html?demo&team=YourTeamName`, press F11, start Win+Alt+R,
    press F5. The built-in demo runs exactly 30 s with English captions (`docs/VIDEO_SCRIPT.md`). Panel only,
    no board. Upload, make the link public, test it in a private window.
-4. ~~GitHub~~ **done:** pushed to https://github.com/OrhunErenU/crewwatch- (public). The repo name ends with
-   a hyphen; renaming it to `crewwatch` in GitHub Settings is safe (GitHub redirects the old URL).
+4. ~~GitHub~~ **done:** pushed to https://github.com/OrhunErenU/crewwatch (public; renamed from `crewwatch-`, old URL redirects).
    `vendor/` and `data/raw/` are git-ignored by design. The internal plan, the local asset list and
    `.claude/` were removed from the public repo (kept locally, git-ignored) and from the whole git
    history (rewritten and force-pushed on 14 Nov; a pre-rewrite bundle is kept outside the repo).
