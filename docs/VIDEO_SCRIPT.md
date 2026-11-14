@@ -1,5 +1,17 @@
 # DRAFT — rewrite in your own words
 
+## Fastest way to record (built-in demo mode)
+1. Open `web/index.html?demo&team=YourTeamName` in Chrome/Edge (works from the file, no server needed).
+   It starts after 0.6 s and runs **exactly 30 s**: title → Mars delay → frozen HR on Crew A with the
+   alert card → results + "67,388 / 67,388 identical" → closing card. English captions are built in,
+   so they also serve as the required subtitles if you speak Turkish over it.
+2. Full screen (F11) on a 1920×1080 screen. Start recording with **Win+Alt+R** (Xbox Game Bar) or OBS,
+   then reload the page (F5) so the demo starts from 0:00. Stop after the closing card.
+3. Optional voice-over: read the "Voice" column below while it plays.
+4. Without `?demo`, the "▶ 30-s demo" button in the header starts the same sequence; Esc stops it.
+
+## Manual version (if you want to drive it yourself)
+
 **Hard limit: 30 seconds** (Space Apps 2026 guide). English, or another language with English subtitles.
 No people under 18 on screen. Any AI-generated image/video needs a visible watermark (we plan none).
 Screen recording of `web/index.html` only. **No board footage** (no board access, D-23); say

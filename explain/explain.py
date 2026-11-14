@@ -61,7 +61,9 @@ def explain(ev):
 
     for ch, n in sorted(ev["hold"].items()):
         lim = ev["hold_n"].get(ch)
-        if lim and n >= lim and C.CHANNELS[C.CH[ch]][1] not in silent:
+        # lim - 1 = longest unchanged run seen in normal data; reaching it is already
+        # worth saying when the model has alarmed (the sentence states both numbers)
+        if lim and n > 0 and n >= lim - 1 and C.CHANNELS[C.CH[ch]][1] not in silent:
             name = C.CHANNELS[C.CH[ch]][6]
             lines.append("%s has read exactly %s for %d s while data keeps arriving "
                          "(longest seen in normal data: %d s)." % (

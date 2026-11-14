@@ -46,14 +46,18 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 - `data/SOURCES.md`: no "to confirm" rows left (EIMO NTRS, IEEE Sys J 2018, van Hees 2013, Lang 2004,
   Mars light time all checked). A wrong bone-loss figure was corrected (ISS hip trabecular 2.2–2.7 %/month).
 - Panel checked at 1009 px and at phone width (375 px): no horizontal scroll, controls usable.
+- Fixed: on screens with display scaling ≠ 100 % the chart canvas grew by that factor on every frame
+  until it went blank (seen at 125 %). Fixed by reading the logical height once.
+- Added a 30-s scripted demo mode for recording (`?demo`, or the header button).
 
 ## What only the team can do (in this order)
 1. **Decide the pitch** around the measured result (D-20, `eval/READING.md`). Don't use the roadmap's
    original "types 3–4 only the joint model catches" line; the data does not support it.
 2. **Rewrite** `docs/PROJECT_PAGE_DRAFT.md`, `docs/VIDEO_SCRIPT.md`, `docs/SLIDES_OUTLINE.md`,
    `eval/READING.md` in your own words (they start with `DRAFT — rewrite…`).
-3. **Record the 30-s video** from `web/index.html` (panel only, no board; script has timings). English
-   subtitles if you speak Turkish. Upload, make the link public, test it in a private window.
+3. **Record the 30-s video:** open `web/index.html?demo&team=YourTeamName`, press F11, start Win+Alt+R,
+   press F5. The built-in demo runs exactly 30 s with English captions (`docs/VIDEO_SCRIPT.md`). Panel only,
+   no board. Upload, make the link public, test it in a private window.
 4. **GitHub:** create the `crewwatch` repo, `git remote add origin …`, push `main`. `vendor/` and
    `data/raw/` are git-ignored by design. Check the README renders.
 5. **Space Apps page:** paste the rewritten fields; NASA data = DONKI + RAD; SI question from

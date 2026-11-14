@@ -68,6 +68,18 @@ td.win{color:var(--ok);font-weight:600}
 .vs .lbl{font-size:11px;color:var(--muted)}
 .vs .val{font-family:var(--mono);font-size:15px;margin-top:2px}
 footer{color:var(--muted);font-size:12px;padding:0 20px 24px;max-width:1500px;margin:0 auto}
+/* ---- 30-second demo mode (index.html?demo) ---- */
+#cap{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);max-width:min(1100px,92vw);
+  background:rgba(13,17,23,.92);border:1px solid var(--line);border-radius:12px;padding:14px 22px;
+  font-size:26px;line-height:1.3;text-align:center;z-index:50;display:none;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#ovl{position:fixed;inset:0;background:rgba(13,17,23,.94);z-index:60;display:none;
+  align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px}
+#ovl h1{font-size:64px;margin:0 0 12px;letter-spacing:1px}
+#ovl p{font-size:26px;color:var(--muted);margin:6px 0}
+#ovl .mono{font-family:var(--mono);color:var(--ok)}
+.glow{outline:3px solid var(--accent)!important;outline-offset:3px;box-shadow:0 0 0 8px rgba(88,166,255,.18)!important;transition:outline .2s}
+#demoBtn{margin-left:8px}
+body.demo #demoBtn, body.demo .controls{opacity:.35}
 a{color:var(--accent)}
 </style>
 </head>
@@ -76,6 +88,7 @@ a{color:var(--accent)}
   <h1>CrewWatch</h1>
   <span class="tag">On-board early warning for crew wearables — integer, deterministic, flight-code scores</span>
   <span class="met" id="met">MET --:--:--</span>
+  <button id="demoBtn" title="30-second scripted demo for screen recording (Esc to stop)">▶ 30-s demo</button>
 </header>
 
 <main>
@@ -167,6 +180,8 @@ a{color:var(--accent)}
   Scores replayed from the integer flight inference code (tinyinfer) run on the host. Early-warning / check-your-sensor language only — not a diagnosis.
 </footer>
 
+<div id="cap" role="status" aria-live="polite"></div>
+<div id="ovl"></div>
 <script src="data.js"></script>
 <script src="crewwatch_wasm.js"></script>
 <script src="crewwatch_engine.js"></script>
@@ -214,7 +229,17 @@ function updateCards(){
 
 // ---------- main chart
 const cv = document.getElementById('chart');
-function fit(c){const r=c.getBoundingClientRect();const dpr=window.devicePixelRatio||1;const h=+c.getAttribute('height');c.width=r.width*dpr;c.height=h*dpr;const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);return [g,r.width,h];}
+function fit(c){
+  // logical CSS height comes from the original height attribute, read ONCE (setting c.height later
+  // rewrites that attribute -- reading it again grew the canvas by devicePixelRatio on every frame)
+  if(!c.dataset.h) c.dataset.h = c.getAttribute('height');
+  const h = +c.dataset.h, r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  c.style.height = h + 'px';
+  const W = Math.round(r.width * dpr), Hp = Math.round(h * dpr);
+  if (c.width !== W) c.width = W;
+  if (c.height !== Hp) c.height = Hp;
+  const g = c.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0); return [g, r.width, h];
+}
 
 const LANES = [
   {key:'hr_x10', label:'Heart rate', unit:'bpm'},
@@ -401,6 +426,58 @@ setTimeout(function(){
                       `Same input → same decision on every platform: that is what lets an alert be checked and trusted.`;
   } catch (e) { big.textContent = 'not available'; txt.textContent = String(e.message || e); }
 }, 50);
+
+// ---------- 30-second scripted demo for screen recording (docs/VIDEO_SCRIPT.md).
+// Plays recorded data only; nothing here computes a score. ?demo starts it on load, ?team=Name sets the name.
+(function(){
+  const qs = new URLSearchParams(location.search);
+  const team = qs.get('team') || 'Team <name>';
+  const cap = document.getElementById('cap'), ovl = document.getElementById('ovl');
+  const whyCard = document.getElementById('dest').closest('.card');
+  const crewA = crew.findIndex(c => c.id === 'Crew A');
+  const fA = crew[crewA].faults[0];
+  const firstCw = crew[crewA].crewwatch.findIndex((v,i) => v && i >= fA.onset) - fA.onset;
+  let raf = null;
+  function caption(t){ cap.innerHTML = t; cap.style.display = t ? 'block' : 'none'; }
+  function overlay(h){ ovl.innerHTML = h; ovl.style.display = h ? 'flex' : 'none'; }
+  function glow(els){ document.querySelectorAll('.glow').forEach(e => e.classList.remove('glow')); (els||[]).forEach(e => e && e.classList.add('glow')); }
+  function scrollTo(el){ if(el) el.scrollIntoView({behavior:'smooth', block:'center'}); }
+  // [start s, end s, enter()] ; replay window handled separately
+  const R0 = fA.onset - 20, SPEED = 12;   // 0:08-0:18 shows 120 s of replay: 20 s before the freeze, 100 s after
+  const steps = [
+    [0, 3, () => { window.scrollTo(0,0); playing = false; sel = crewA; pos = R0; draw();
+      overlay(`<h1>CrewWatch</h1><p>On-board early warning for crew wearables</p><p>${team} · Ankara</p>`); caption(''); }],
+    [3, 8, () => { overlay(''); const d = document.getElementById('dest'); d.value = '1320'; d.dispatchEvent(new Event('change'));
+      glow([whyCard]); scrollTo(whyCard); caption('On Mars, a question to Earth takes up to <b>44 minutes</b> round trip. Health alerts must come from the ship.'); }],
+    [8, 13, () => { glow([document.getElementById('chart').closest('.card')]); window.scrollTo({top:0, behavior:'smooth'});
+      caption('Crew A: the heart-rate sensor <b>freezes</b>. Every value is still in range, so a limit check does not notice.'); }],
+    [13, 18, () => { glow([document.getElementById('alert'), document.getElementById('vsCw').closest('.card')]);
+      caption(`CrewWatch flags it in <b>${firstCw} s</b> and tells the astronaut what to check.`); }],
+    [18, 25, () => { glow([document.getElementById('results').closest('.card'), document.getElementById('det')]);
+      scrollTo(document.getElementById('results'));
+      caption('Tested on real recordings: catches frozen and silent sensors with <b>8× fewer false alarms</b> on new people. Slow drift is still unsolved, and we say so.'); }],
+    [25, 30, () => { glow([]); caption('');
+      const big = document.getElementById('detBig').textContent;
+      overlay(`<h1>CrewWatch</h1><p>Integer-only flight code · same decision on every computer</p>
+               <p class="mono">${big} scores: browser = ground</p><p>NASA Space Apps 2026 · ${team}</p>`); }],
+  ];
+  function stop(){ if(raf) cancelAnimationFrame(raf); raf = null; document.body.classList.remove('demo'); caption(''); overlay(''); glow([]); }
+  function start(){
+    stop(); document.body.classList.add('demo');
+    const t0 = performance.now(); let k = -1;
+    function frame(now){
+      const t = (now - t0) / 1000;
+      while (k + 1 < steps.length && t >= steps[k+1][0]) { k++; steps[k][2](); }
+      if (t >= 8 && t < 18) { pos = Math.min(N-1, Math.floor(R0 + (t - 8) * SPEED)); draw(); }
+      if (t >= 30) { stop(); return; }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  document.getElementById('demoBtn').onclick = start;
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') stop(); });
+  if (qs.has('demo')) setTimeout(start, 600);
+})();
 })();
 </script>
 </body>
