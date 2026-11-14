@@ -26,3 +26,7 @@ generation in descriptive text and metadata." This file is that text.
 Metadata: generated source files carry the line
 "Written with AI assistance (Claude Code), see AI_USE.md" in their header or
 are listed above.
+
+## Visible label
+The panel (`web/index.html`) shows a fixed "SI-assisted" label in the bottom-left corner, so it is in
+every frame of `docs/crewwatch-demo.mp4`, as the Space Apps SI rule asks for videos.

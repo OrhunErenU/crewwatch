@@ -94,9 +94,14 @@ footer{color:var(--muted);font-size:12px;padding:0 20px 24px;max-width:1500px;ma
 #demoBtn{margin-left:8px}
 body.demo #demoBtn, body.demo .controls{opacity:.35}
 a{color:var(--accent)}
+/* visible SI disclosure (Space Apps SI rule): on the panel and therefore in every recorded frame */
+#siMark{position:fixed;left:10px;bottom:10px;z-index:70;max-width:190px;font-size:12px;line-height:1.35;color:var(--muted);
+  background:rgba(13,17,23,.85);border:1px solid var(--line);border-radius:6px;padding:5px 8px;pointer-events:none}
+body.demo #siMark{font-size:14px}
 </style>
 </head>
 <body>
+<div id="siMark"><b>SI-assisted</b><br>code and captions written with AI help (Claude Code). See AI_USE.md</div>
 <header>
   <h1>CrewWatch</h1>
   <span class="tag">On-board early warning for crew wearables — integer, deterministic, flight-code scores</span>
