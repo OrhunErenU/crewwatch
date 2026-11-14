@@ -109,6 +109,26 @@
     return { fast: fast, slow: slow, same: same, diff: diff, firstDiff: firstDiff };
   };
 
+  /* Astronaut self check-in, classified by crewwatch_checkin.c (wasm).
+   * v = {present, sys, dia, pulse, tempX10, glucose, sleepMin, mood}; returns null if rejected. */
+  Engine.prototype.checkIn = function (v, wearableHrX10, wearableAge) {
+    const x = this.x;
+    const dv = new DataView(this.mem(), x.CW_CheckInBuf(), 16);
+    dv.setUint16(0, v.present, true); dv.setUint16(2, v.sys || 0, true); dv.setUint16(4, v.dia || 0, true);
+    dv.setUint16(6, v.pulse || 0, true); dv.setInt16(8, v.tempX10 || 0, true); dv.setUint16(10, v.glucose || 0, true);
+    dv.setUint16(12, v.sleepMin || 0, true); dv.setUint8(14, v.mood || 0); dv.setUint8(15, 0);
+    if (!x.CW_EvalCheckIn(wearableHrX10 & 0xFFFF, wearableAge & 0xFFFF)) return null;
+    const r = new DataView(this.mem(), x.CW_CheckInResult(), 12);
+    return { bp: r.getUint8(0), temp: r.getUint8(1), glucose: r.getUint8(2), sleep: r.getUint8(3), mood: r.getUint8(4),
+             pulse: r.getUint8(5), pulseDiffX10: r.getInt16(6, true), overall: r.getUint8(8) };
+  };
+
+  Engine.prototype.lowMoodStreak = function (moods) {
+    const m = moods.slice(-64);
+    new Uint8Array(this.mem(), this.x.CW_MoodBuf(), m.length).set(m);
+    return this.x.CW_LowMoodStreak(m.length);
+  };
+
   if (typeof module !== "undefined" && module.exports) module.exports = Engine;
   else root.CrewWatchEngine = Engine;
 })(typeof window !== "undefined" ? window : globalThis);

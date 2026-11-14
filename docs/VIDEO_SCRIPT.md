@@ -2,8 +2,9 @@
 
 ## Fastest way to record (built-in demo mode)
 1. Open `web/index.html?demo&team=YourTeamName` in Chrome/Edge (works from the file, no server needed).
-   It starts after 0.6 s and runs **exactly 30 s**: title → Mars delay → frozen HR on Crew A with the
-   alert card → results + "67,388 / 67,388 identical" → closing card. English captions are built in,
+   It starts after 0.6 s and runs **exactly 30 s**: title (0–3) → Mars delay (3–7) → frozen HR on
+   Crew A (7–11) → alert card asks for a pulse check (11–16) → Crew A's 15-s hand count vs the strap,
+   "trust your own count" (16–22) → results + "67,388 / 67,388 identical" (22–26) → closing card. English captions are built in,
    so they also serve as the required subtitles if you speak Turkish over it.
 2. Full screen (F11) on a 1920×1080 screen. Start recording with **Win+Alt+R** (Xbox Game Bar) or OBS,
    then reload the page (F5) so the demo starts from 0:00. Stop after the closing card.

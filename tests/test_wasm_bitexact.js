@@ -71,7 +71,20 @@ const negOk = neg.diff > 0;
 console.log((negOk ? "  ok   " : "  FAIL ") + "negative control: Bias[0] + 1 LSB -> " + neg.diff + " scores differ (must be > 0)");
 if (!negOk) fails++;
 if (alarmsHost !== alarmsWasm) fails++;
+
+// astronaut check-in: same crewwatch_checkin.c, host (gcc) reference vs wasm
+const ref = JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "checkin_ref.json"), "utf8"));
+let ciSame = 0;
+for (const c of ref) {
+  const [present, sys, dia, pulse, tempX10, glucose, sleepMin, mood] = c.in;
+  const r = eng.checkIn({ present, sys, dia, pulse, tempX10, glucose, sleepMin, mood }, c.hr, c.age);
+  const got = r === null ? null : [r.bp, r.temp, r.glucose, r.sleep, r.mood, r.pulse, r.pulseDiffX10, r.overall];
+  if (JSON.stringify(got) === JSON.stringify(c.out)) ciSame++;
+}
+const ciOk = ciSame === ref.length;
+console.log((ciOk ? "  ok   " : "  FAIL ") + "check-in: " + ciSame + "/" + ref.length + " results identical (host gcc vs wasm)");
+if (!ciOk) fails++;
 console.log(fails === 0
-  ? "PASS -- browser (wasm32) and host (x86-64 gcc) give bit-identical scores on " + total + " score slots"
+  ? "PASS -- browser (wasm32) and host (x86-64 gcc) give bit-identical scores on " + total + " score slots and identical check-in results"
   : "FAIL (" + fails + ")");
 process.exit(fails === 0 ? 0 : 1);

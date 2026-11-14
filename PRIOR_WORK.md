@@ -28,5 +28,7 @@ and is open source. We reuse it unchanged and say so.
 | `eval/` | 3-detector comparison at matched false-alarm budget |
 | `explain/`, `web/`, `docs/` | astronaut-language alerts, offline panel, submission drafts |
 | `web/wasm/cw_glue.c`, `web/wasm/build_wasm.sh`, `web/crewwatch_engine.js`, `tests/test_wasm_bitexact.js` | flight C → wasm32, in-browser recomputation, bit-exact test |
+| `features/crewwatch_checkin.{c,h}`, `features/test_checkin.c`, `tests/make_checkin_ref.py` | astronaut self check-in + pulse-vs-wearable cross-check (integer C), host test, host/wasm reference |
+| `scripts/record_demo.js`, `scripts/record_server.py` | automatic 30-s demo recording |
 
 Generated with AI assistance (Claude Code) — see `AI_USE.md`.

@@ -102,6 +102,9 @@ def main():
                      "label": label, "faults": marks, "alerts": alerts,
                      "activity": rec["activity"], "baseline": tab["baseline"],
                      "arrive": arrive, "score_fast": sfast, "score_slow": sslow,
+                     # the real recording's HR before any fault was injected (used by the demo
+                     # to derive an honest hand-count; never shown as a sensor value)
+                     "hr_true": rec["hr_x10"],
                      "table": {"bias": tab["bias"], "scale": tab["scale"], "shift": tab["shift"]}})
         print("%s: %d ticks, %d CrewWatch alert cards, faults %s" % (
             C.CREW[k], len(score), len(alerts), [(x["type"], x["onset"]) for x in marks]))

@@ -17,9 +17,11 @@ broken sensor can look perfectly normal. A heart-rate sensor that freezes keeps 
 number. Every value stays inside its limits, so the standard limit check on the spacecraft says
 nothing. CrewWatch runs on the spacecraft's own computer. Every second it checks whether each sensor's
 value is still moving, whether each sensor is still talking, and whether the readings make sense
-together. A visual panel shows each crew member's vital signs over time, a color-coded status, radiation
-exposure and reference trends for bone and sleep, and tells the astronaut in plain words what to check
-first and when to bring in the crew medical officer. It is written in integer-only C,
+together. When it suspects a sensor, it asks the astronaut to check it by hand: a 15-second pulse
+count is compared with what the chest strap says, and the astronaut is told which one to trust.
+The same panel takes the astronaut's own daily check-in (blood pressure, temperature, blood glucose,
+sleep, mood), shows vital signs over time with a color-coded status, radiation exposure, and says in
+plain words what to do next and when to bring in the crew medical officer. It is written in integer-only C,
 built on flight software we wrote earlier, so the same input always gives the same alert on any
 computer. We tested it on real recordings of 15 people and we report where it fails as well as where
 it works.
@@ -64,11 +66,21 @@ CrewWatch's panel (`web/index.html`, works offline) does this for a crew of four
   log it for the crew medical officer;
 - a radiation panel (NASA DONKI solar particle events + measured Mars-transit dose rate), and reference
   panels for bone loss and sleep from published spaceflight studies (not crew data);
-- a "why on board?" box showing the light-time delay to Earth (NASA HRP hazard: distance from Earth).
+- a "why on board?" box showing the light-time delay to Earth (NASA HRP hazard: distance from Earth);
+- a **self check-in** for the indicators the challenge names: blood pressure, pulse, oral temperature,
+  blood glucose, hours slept and mood (1–5). Each value is classified against a published threshold
+  (AHA 2017 blood-pressure categories, CDC fever ≥ 38.0 °C, ADA low glucose < 70 / < 54 mg/dL,
+  AASM/SRS ≥ 7 h sleep), shown as a green/amber/red chip, with what to do next. Three low-mood
+  check-ins in a row suggest a private talk with the crew medical officer.
 
 Our main addition is the question that comes before every health judgement: *is this reading still
-true?* A self-assessment is only as good as the sensor behind it, and far from Earth nobody else will
-catch a broken one.
+true?* The check-in closes that loop. When CrewWatch suspects the heart-rate sensor, the alert card
+asks the astronaut to count their own pulse for 15 seconds. The count is compared with the chest
+strap at that moment (agree if within 10 bpm or 10 %). In the demo, Crew A counts 25 beats = 100 bpm
+while the frozen strap still reports 116, and CrewWatch answers: trust your own count, re-seat the
+strap. The hand count comes from the real recording, not an invented number. The check-in rules are
+integer-only C, the same code style and the same WebAssembly module as the monitor. A test checks
+that 5,000 check-ins give identical results on the PC and in the browser.
 
 **How we tested it**
 

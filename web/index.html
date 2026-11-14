@@ -68,6 +68,19 @@ td.win{color:var(--ok);font-weight:600}
 .vs .lbl{font-size:11px;color:var(--muted)}
 .vs .val{font-family:var(--mono);font-size:15px;margin-top:2px}
 footer{color:var(--muted);font-size:12px;padding:0 20px 24px;max-width:1500px;margin:0 auto}
+/* ---- astronaut self check-in ---- */
+.ci-grid{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:13px}
+.ci-grid input{width:64px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit}
+.ci-grid .row2{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.mood button{padding:3px 9px}
+.mood button.on{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 8px;border-radius:10px;font-size:12px;border:1px solid var(--line)}
+.chip.g{border-color:var(--ok);color:var(--ok)} .chip.a{border-color:var(--warn);color:var(--warn)} .chip.r{background:var(--bad);border-color:var(--bad);color:#fff}
+#ciOut ul{margin:6px 0 0 18px;padding:0} #ciOut li{margin:3px 0;font-size:13px}
+.xcheck{margin-top:8px;padding:8px;border-radius:8px;background:var(--panel2);font-size:13px}
+.xcheck.bad{outline:2px solid var(--warn)}
+#ciHist{width:100%;font-size:11.5px;margin-top:8px}
+#ciTimer{font-family:var(--mono);min-width:38px;display:inline-block}
 /* ---- 30-second demo mode (index.html?demo) ---- */
 #cap{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);max-width:min(1100px,92vw);
   background:rgba(13,17,23,.92);border:1px solid var(--line);border-radius:12px;padding:14px 22px;
@@ -120,6 +133,31 @@ a{color:var(--accent)}
     <div class="card alertcard" id="alert">
       <h2>Alert for <span id="alertWho">—</span></h2>
       <div id="alertBody" class="small">No alert. Press play.</div>
+    </div>
+    <div class="card" id="checkin">
+      <h2>Self check-in &middot; <span id="ciWho">&mdash;</span></h2>
+      <div class="small" style="margin-bottom:6px">Enter what you measured. Leave a field empty if you did not measure it.
+        Checked by the same integer C code as the monitor, and your pulse is compared with what the chest strap reports right now.</div>
+      <div class="ci-grid">
+        <label for="ciSys">Blood pressure</label>
+        <div class="row2"><input id="ciSys" inputmode="numeric" placeholder="sys" aria-label="systolic"> / <input id="ciDia" inputmode="numeric" placeholder="dia" aria-label="diastolic"> mmHg</div>
+        <label for="ciPulse">Pulse (by hand)</label>
+        <div class="row2"><input id="ciPulse" inputmode="numeric" placeholder="bpm"> bpm
+          <button id="ciCount" type="button" title="Count beats at your wrist for 15 s; the result is multiplied by 4">15-s count</button><span id="ciTimer"></span></div>
+        <label for="ciTemp">Temperature (oral)</label>
+        <div class="row2"><input id="ciTemp" inputmode="decimal" placeholder="&deg;C"> &deg;C</div>
+        <label for="ciGlu">Blood glucose</label>
+        <div class="row2"><input id="ciGlu" inputmode="numeric" placeholder="mg/dL"> mg/dL</div>
+        <label for="ciSleep">Sleep last night</label>
+        <div class="row2"><input id="ciSleep" inputmode="decimal" placeholder="h"> h</div>
+        <span>Mood</span>
+        <div class="row2 mood" id="ciMood" role="radiogroup" aria-label="mood 1 to 5">
+          <button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button>
+          <span class="small">1 very low &middot; 5 very good</span></div>
+      </div>
+      <div style="margin-top:8px"><button id="ciGo" type="button">Check</button></div>
+      <div id="ciOut"></div>
+      <table id="ciHist"></table>
     </div>
     <div class="card">
       <h2>Same data, two monitors</h2>
@@ -208,8 +246,8 @@ crew.forEach((c, i) => {
   const d = document.createElement('div');
   d.className = 'card member'; d.tabIndex = 0;
   d.innerHTML = `<div class="nm">${c.id}</div><div class="st">${c.subject}</div><div class="vit"></div><div class="st last">no alert</div>`;
-  d.onclick = () => {sel = i; draw();};
-  d.onkeydown = e => {if(e.key==='Enter'){sel=i;draw();}};
+  d.onclick = () => {sel = i; draw(); if (window.__ciHist) window.__ciHist();};
+  d.onkeydown = e => {if(e.key==='Enter'){sel=i;draw(); if (window.__ciHist) window.__ciHist();}};
   crewEl.appendChild(d);
 });
 
@@ -335,7 +373,9 @@ function draw(){
     document.getElementById('alertBody').innerHTML =
       `<div class="hd">${a.level} · ${hms(i-a.t)} ago (t=${hms(a.t)})</div><div class="small">${a.headline}</div>` +
       '<ul>' + a.lines.map(l=>`<li>${l}</li>`).join('') + '</ul>' +
-      '<ul>' + a.actions.map(l=>`<li class="act">${l}</li>`).join('') + '</ul>';
+      '<ul>' + a.actions.map(l=>`<li class="act">${l}</li>`).join('') + '</ul>' +
+      (/heart rate|electrode|chest strap/i.test(a.lines.join(' ') + a.actions.join(' '))
+        ? '<button type="button" id="verifyBtn" style="margin-top:6px">&#9995; Verify with your own pulse</button>' : '');
   } else {
     box.classList.remove('on');
     document.getElementById('alertBody').innerHTML = a ? `<div class="small">Last alert at ${hms(a.t)}.</div>` : '<div class="small">No alert so far.</div>';
@@ -410,13 +450,109 @@ function drawBone(){
 
 draw(); drawRad(); drawBone();
 
+// ---------- shared wasm engine (flight C + crewwatch_checkin.c)
+let _eng = null;
+function getEngine(){ if(!_eng) _eng = CrewWatchEngine.fromBase64(window.CREWWATCH_WASM_B64); return _eng; }
+
+// ---------- astronaut self check-in. Classification = crewwatch_checkin.c in wasm; JS only formats text.
+const ci = (function(){
+  const $ = id => document.getElementById(id);
+  let mood = 0, timer = null;
+  const BP = ['', 'normal', 'elevated', 'high, stage 1', 'high, stage 2', 'very high (above 180/120)'];
+  const key = () => 'cw-checkins-' + crew[sel].id;
+  function load(){ try { return JSON.parse(localStorage.getItem(key()) || '[]'); } catch(e){ return []; } }
+  function save(h){ try { localStorage.setItem(key(), JSON.stringify(h.slice(-30))); } catch(e){} }
+  // chest-strap HR and its age at the current replay second (bookkeeping only, no scoring)
+  function wearable(){
+    const c = crew[sel], i = Math.min(Math.floor(pos), c.arrive.length - 1);
+    let age = 0; while (i - age >= 0 && !(c.arrive[i - age] & 1) && age < 0xFFFF) age++;
+    return { hrX10: c.series.hr_x10[i] || 0, age: age };
+  }
+  function num(id){ const v = $(id).value.trim().replace(',', '.'); return v === '' ? null : Number(v); }
+  document.querySelectorAll('#ciMood button').forEach(b => b.onclick = () => {
+    mood = +b.dataset.v; document.querySelectorAll('#ciMood button').forEach(x => x.classList.toggle('on', x === b)); });
+  function countPulse(){
+    if (timer) return;
+    let left = 15; $('ciTimer').textContent = left + ' s';
+    timer = setInterval(() => {
+      left--; $('ciTimer').textContent = left > 0 ? left + ' s' : '';
+      if (left <= 0) { clearInterval(timer); timer = null;
+        const beats = prompt('How many beats did you count in 15 seconds?');
+        if (beats !== null && beats.trim() !== '' && isFinite(+beats)) $('ciPulse').value = Math.round(+beats * 4); }
+    }, 1000);
+  }
+  $('ciCount').onclick = countPulse;
+  function chip(cls, txt){ return `<span class="chip ${cls}">${txt}</span>`; }
+  function run(){
+    const sys = num('ciSys'), dia = num('ciDia'), pulse = num('ciPulse'), t = num('ciTemp'), g = num('ciGlu'), sl = num('ciSleep');
+    let present = 0;
+    if (sys !== null && dia !== null) present |= 1;
+    if (pulse !== null) present |= 2;
+    if (t !== null) present |= 4;
+    if (g !== null) present |= 8;
+    if (sl !== null) present |= 16;
+    if (mood) present |= 32;
+    const w = wearable();
+    const v = { present, sys: sys | 0, dia: dia | 0, pulse: pulse | 0, tempX10: Math.round((t || 0) * 10),
+                glucose: g | 0, sleepMin: Math.round((sl || 0) * 60), mood };
+    const r = getEngine().checkIn(v, w.hrX10, w.age);
+    const out = $('ciOut');
+    if (!r) { out.innerHTML = '<div class="xcheck bad">One of the values is outside what a real measurement can be. Please check what you typed.</div>'; return; }
+    const chips = [], adv = [];
+    if (present & 1) { const cl = r.bp >= 5 ? 'r' : r.bp >= 3 ? 'a' : 'g';
+      chips.push(chip(cl, `BP ${sys}/${dia}: ${BP[r.bp]}`));
+      if (r.bp === 5) adv.push('Blood pressure above 180/120 (AHA). Rest for 5 minutes and measure again. If it is still this high, contact the crew medical officer now.');
+      else if (r.bp >= 3) adv.push(`Blood pressure ${BP[r.bp]} (AHA 2017). Measure again at rest later today and mention it at the next medical check.`); }
+    if (present & 4) { chips.push(chip(r.temp === 2 ? 'a' : 'g', `${t.toFixed(1)} °C${r.temp === 2 ? ': fever' : ''}`));
+      if (r.temp === 2) adv.push('38.0 °C or more counts as a fever (CDC). Tell the crew medical officer and measure again in an hour. CrewWatch keeps watching your heart rate and skin temperature.'); }
+    if (present & 8) { const cl = r.glucose === 3 ? 'r' : r.glucose === 2 ? 'a' : 'g';
+      chips.push(chip(cl, `glucose ${g} mg/dL${r.glucose === 3 ? ': very low' : r.glucose === 2 ? ': low' : ''}`));
+      if (r.glucose >= 2) adv.push(`Below ${r.glucose === 3 ? 54 : 70} mg/dL (ADA ${r.glucose === 3 ? 'level 2' : 'level 1'}). ADA advice: take 15 g of fast-acting carbohydrate and check again after 15 minutes.` +
+                                   (r.glucose === 3 ? ' Contact the crew medical officer now.' : '')); }
+    if (present & 16) { chips.push(chip(r.sleep === 2 ? 'a' : 'g', `slept ${sl} h`));
+      if (r.sleep === 2) adv.push('Less than 7 hours (AASM/SRS adult recommendation). ISS crews averaged 6.1 h (Barger 2014). Protect your next sleep period if the schedule allows.'); }
+    if (present & 32) { const hist = load().map(h => h.mood).filter(Boolean).concat([mood]);
+      const streak = getEngine().lowMoodStreak(hist);
+      chips.push(chip(r.mood === 2 ? 'a' : 'g', `mood ${mood}/5`));
+      if (streak >= 3) adv.push(`Low mood ${streak} check-ins in a row. Consider a private talk with the crew medical officer or the flight psychologist.`); }
+    let x = '';
+    if (present & 2) {
+      const wb = (w.hrX10 / 10).toFixed(1), d = (r.pulseDiffX10 / 10).toFixed(1);
+      if (r.pulse === 1) x = `<div class="xcheck">&#10003; <b>Sensor check:</b> you counted ${pulse} bpm, the chest strap shows ${wb} bpm (difference ${d}). The strap is reading correctly.</div>`;
+      else if (r.pulse === 2) x = `<div class="xcheck bad">&#10007; <b>Sensor check:</b> you counted ${pulse} bpm, the chest strap shows ${wb} bpm (difference ${d}). <b>Trust your own count.</b> The strap is not telling the truth: re-seat or restart it, then check again.</div>`;
+      else x = `<div class="xcheck bad"><b>Sensor check:</b> the chest strap has sent nothing for ${w.age} s. Your count of ${pulse} bpm is the only heart-rate reading right now.</div>`;
+    }
+    const overall = ['g', 'a', 'r'][r.overall];
+    const head = ['All entered values are in the normal range.', 'Some values need attention, see below.', 'Act now, see below.'][r.overall];
+    out.innerHTML = `<div style="margin-top:8px">${chips.join('')}</div>${x}<div class="small" style="margin-top:6px"><span class="chip ${overall}">${['OK', 'CHECK', 'ACT NOW'][r.overall]}</span> ${head}</div>` +
+      (adv.length ? '<ul>' + adv.map(a => `<li>${a}</li>`).join('') + '</ul>' : '') +
+      '<div class="small" style="margin-top:4px">Early warning only, not a diagnosis. Thresholds: AHA 2017, CDC, ADA, AASM/SRS (data/SOURCES.md).</div>';
+    const h = load(); h.push({ t: Math.floor(pos), sys, dia, pulse, temp: t, sleep: sl, mood, o: r.overall, x: r.pulse }); save(h); hist();
+  }
+  function hist(){
+    $('ciWho').textContent = crew[sel].id;
+    const h = load().slice(-5).reverse();
+    $('ciHist').innerHTML = h.length ? '<tr><th>replay</th><th>BP</th><th>pulse</th><th>°C</th><th>sleep</th><th>mood</th><th></th></tr>' +
+      h.map(e => `<tr><td>${hms(e.t)}</td><td>${e.sys != null ? e.sys + '/' + e.dia : '–'}</td><td>${e.pulse ?? '–'}${e.x === 2 ? ' ✗' : e.x === 1 ? ' ✓' : ''}</td><td>${e.temp ?? '–'}</td><td>${e.sleep ?? '–'}</td><td>${e.mood || '–'}</td><td><span class="chip ${['g', 'a', 'r'][e.o]}">&nbsp;</span></td></tr>`).join('') : '';
+  }
+  $('ciGo').onclick = run;
+  window.__ciHist = hist;
+  document.addEventListener('click', e => { if (e.target && e.target.id === 'verifyBtn') {
+    $('checkin').scrollIntoView({ behavior: 'smooth', block: 'center' }); $('ciPulse').focus(); countPulse(); } });
+  hist();
+  return { run, hist,
+           setMood: v => { const b = document.querySelector(`#ciMood button[data-v="${v}"]`); if (b) b.click(); },
+           clear(){ ['ciSys', 'ciDia', 'ciPulse', 'ciTemp', 'ciGlu', 'ciSleep'].forEach(i => $(i).value = ''); mood = 0;
+                    document.querySelectorAll('#ciMood button').forEach(x => x.classList.remove('on')); $('ciOut').innerHTML = ''; } };
+})();
+
 // ---------- determinism check: rerun the flight C (wasm32) here, compare with host (x86-64 gcc) scores
 setTimeout(function(){
   const big = document.getElementById('detBig'), txt = document.getElementById('detTxt');
   try {
     if (!window.CREWWATCH_WASM_B64 || !window.CrewWatchEngine || !D.wasm_model) throw new Error('wasm files missing');
     const t0 = performance.now();
-    const eng = CrewWatchEngine.fromBase64(window.CREWWATCH_WASM_B64);
+    const eng = getEngine();
     let same = 0, tot = 0;
     D.crew.forEach(c => { const r = eng.replayCrew(D.wasm_model, c); same += r.same; tot += r.same + r.diff; });
     const ms = Math.round(performance.now() - t0);
@@ -443,20 +579,30 @@ setTimeout(function(){
   function glow(els){ document.querySelectorAll('.glow').forEach(e => e.classList.remove('glow')); (els||[]).forEach(e => e && e.classList.add('glow')); }
   function scrollTo(el){ if(el) el.scrollIntoView({behavior:'smooth', block:'center'}); }
   // [start s, end s, enter()] ; replay window handled separately
-  const R0 = fA.onset - 20, SPEED = 12;   // 0:08-0:18 shows 120 s of replay: 20 s before the freeze, 100 s after
+  const R0 = fA.onset - 20, SPEED = 12;   // 0:07-0:16 shows 108 s of replay: 20 s before the freeze, 88 s after
+  const CI_POS = R0 + 9 * SPEED;            // replay second at which the astronaut takes a pulse
+  // the astronaut's hand count comes from the REAL recording (before the fault was injected):
+  // a 15-s count is a whole number of beats, x 4
+  const trueHr = crew[crewA].hr_true ? crew[crewA].hr_true[CI_POS] / 10 : null;
+  const beats = trueHr ? Math.round(trueHr / 4) : null;
   const steps = [
-    [0, 3, () => { window.scrollTo(0,0); playing = false; sel = crewA; pos = R0; draw();
+    [0, 3, () => { window.scrollTo(0,0); playing = false; sel = crewA; pos = R0; draw(); ci.clear(); if (window.__ciHist) window.__ciHist();
       overlay(`<h1>CrewWatch</h1><p>On-board early warning for crew wearables</p><p>${team} · Ankara</p>`); caption(''); }],
-    [3, 8, () => { overlay(''); const d = document.getElementById('dest'); d.value = '1320'; d.dispatchEvent(new Event('change'));
+    [3, 7, () => { overlay(''); const d = document.getElementById('dest'); d.value = '1320'; d.dispatchEvent(new Event('change'));
       glow([whyCard]); scrollTo(whyCard); caption('On Mars, a question to Earth takes up to <b>44 minutes</b> round trip. Health alerts must come from the ship.'); }],
-    [8, 13, () => { glow([document.getElementById('chart').closest('.card')]); window.scrollTo({top:0, behavior:'smooth'});
+    [7, 11, () => { glow([document.getElementById('chart').closest('.card')]); window.scrollTo({top:0, behavior:'smooth'});
       caption('Crew A: the heart-rate sensor <b>freezes</b>. Every value is still in range, so a limit check does not notice.'); }],
-    [13, 18, () => { glow([document.getElementById('alert'), document.getElementById('vsCw').closest('.card')]);
-      caption(`CrewWatch flags it in <b>${firstCw} s</b> and tells the astronaut what to check.`); }],
-    [18, 25, () => { glow([document.getElementById('results').closest('.card'), document.getElementById('det')]);
+    [11, 16, () => { glow([document.getElementById('alert'), document.getElementById('vsCw').closest('.card')]);
+      caption(`CrewWatch flags it in <b>${firstCw} s</b> and asks the astronaut to verify with their own pulse.`); }],
+    [16, 22, () => { const card = document.getElementById('checkin'); glow([card]); scrollTo(card); ci.clear();
+      if (beats) { document.getElementById('ciPulse').value = beats * 4; ci.run();
+        setTimeout(() => { const o = document.getElementById('ciOut'); const y = o.getBoundingClientRect().top + window.scrollY - 160; window.scrollTo({top: y, behavior: 'smooth'}); }, 350); }
+      caption(beats ? `Crew A counts ${beats} beats in 15 s = <b>${beats*4} bpm</b>. The strap still says ${(crew[crewA].series.hr_x10[CI_POS]/10).toFixed(0)}. ` +
+                      `CrewWatch: <b>trust your own count</b>, re-seat the strap.` : ''); }],
+    [22, 26, () => { glow([document.getElementById('results').closest('.card'), document.getElementById('det')]);
       scrollTo(document.getElementById('results'));
-      caption('Tested on real recordings: catches frozen and silent sensors with <b>8× fewer false alarms</b> on new people. Slow drift is still unsolved, and we say so.'); }],
-    [25, 30, () => { glow([]); caption('');
+      caption('Tested on real recordings: catches frozen and silent sensors with <b>8× fewer false alarms</b>. Slow drift is still unsolved, and we say so.'); }],
+    [26, 30, () => { glow([]); caption('');
       const big = document.getElementById('detBig').textContent;
       overlay(`<h1>CrewWatch</h1><p>Integer-only flight code · same decision on every computer</p>
                <p class="mono">${big} scores: browser = ground</p><p>NASA Space Apps 2026 · ${team}</p>`); }],
@@ -468,7 +614,7 @@ setTimeout(function(){
     function frame(now){
       const t = (now - t0) / 1000;
       while (k + 1 < steps.length && t >= steps[k+1][0]) { k++; steps[k][2](); }
-      if (t >= 8 && t < 18) { pos = Math.min(N-1, Math.floor(R0 + (t - 8) * SPEED)); draw(); }
+      if (t >= 7 && t < 16) { pos = Math.min(N-1, Math.floor(R0 + (t - 7) * SPEED)); draw(); }
       if (t >= 30) { stop(); return; }
       raf = requestAnimationFrame(frame);
     }

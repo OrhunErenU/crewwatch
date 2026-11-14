@@ -9,10 +9,10 @@ source "$HOME/emsdk/emsdk_env.sh" >/dev/null 2>&1
 APP="$ROOT/vendor/cfs-m2s150/apps/tlm_watch"
 TI="$ROOT/vendor/tinyinfer/fsw"
 INC="-I$ROOT/features -I$APP/fsw/src -I$APP/config -I$APP/unit-test/host/stubinc -I$TI/inc -I$TI/src"
-SRC="$ROOT/web/wasm/cw_glue.c $ROOT/features/crewwatch_hold.c $APP/fsw/src/tlm_watch_feature.c \
+SRC="$ROOT/web/wasm/cw_glue.c $ROOT/features/crewwatch_hold.c $ROOT/features/crewwatch_checkin.c $APP/fsw/src/tlm_watch_feature.c \
      $APP/fsw/src/tlm_watch_window.c $TI/src/tinyinfer_requantize.c $TI/src/tinyinfer_matvec.c \
      $TI/src/tinyinfer_act.c $TI/src/tinyinfer_score.c"
-EXP='["_CW_Defs","_CW_Xforms","_CW_PktBuf","_CW_WEnc","_CW_WDec","_CW_Vec","_CW_WMean","_CW_Contrib","_CW_Ages","_CW_DefSize","_CW_Init","_CW_Latch","_CW_Tick","_CW_WMeanValid","_CW_HoldTicks","_CW_SetModel","_CW_Score"]'
+EXP='["_CW_Defs","_CW_Xforms","_CW_PktBuf","_CW_WEnc","_CW_WDec","_CW_Vec","_CW_WMean","_CW_Contrib","_CW_Ages","_CW_DefSize","_CW_Init","_CW_Latch","_CW_Tick","_CW_WMeanValid","_CW_HoldTicks","_CW_SetModel","_CW_Score","_CW_CheckInBuf","_CW_CheckInResult","_CW_MoodBuf","_CW_EvalCheckIn","_CW_LowMoodStreak"]'
 OUT="$ROOT/web/wasm/crewwatch.wasm"
 # -O2 like the host build; vendor notes -O0..-O3 give identical results on host.
 emcc -O2 -std=gnu99 -Wall -Wextra -Werror $INC $SRC -o "$OUT" \

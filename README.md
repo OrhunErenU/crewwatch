@@ -5,7 +5,9 @@ On-board early warning for crew wearables. NASA Space Apps Challenge 2026, chall
 
 On a Mars mission, Earth is 3–22 light-minutes away and sometimes out of reach. CrewWatch runs on the
 spacecraft computer. It flags wearable sensor faults that per-channel limit checks cannot see
-(frozen or silent sensors) and tells the astronaut what to check. Every score comes from
+(frozen or silent sensors) and tells the astronaut what to check. When it suspects a sensor, it asks
+the astronaut for a 15-second hand pulse count and says which one to trust. The same panel takes a
+daily self check-in (blood pressure, temperature, glucose, sleep, mood) against published thresholds. Every score comes from
 integer-only, bit-reproducible flight C code (no FPU needed).
 
 **Demo video (29 s):** [`docs/crewwatch-demo.mp4`](docs/crewwatch-demo.mp4), a screen recording of the panel

@@ -35,6 +35,12 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 - [x] DONKI radiation panel (214 SEP events), bone + sleep reference panels (labelled "not crew data")
 - [x] `docs/PROJECT_PAGE.md` (final text for every Space Apps field), `VIDEO_SCRIPT.md`, `SLIDES_OUTLINE.md`
 
+### Added after P2 (team lead's request)
+- [x] **Self check-in + pulse cross-check** (D-27): `features/crewwatch_checkin.c` (36/36 host checks),
+  in the same wasm (5,000/5,000 check-ins identical host vs wasm). The alert card's "Verify with your own
+  pulse" starts a 15-s count; the result says whether to trust the strap. The demo video now shows it
+  (16–22 s).
+
 ### P2
 - [x] **WASM bit-exact** — `node tests/test_wasm_bitexact.js` → `PASS -- browser (wasm32) and host (x86-64 gcc) give bit-identical scores on 67388 score slots` (67 136 non-null; negative control: Bias+1 LSB → 15 630 differ). Panel re-runs this live in the browser (45 ms) and shows the count. Build: `bash scripts/install_emsdk.sh` once, then `bash web/wasm/build_wasm.sh` (WSL).
 - [x] ~~Board run~~ — **closed: no board access** (D-23). Table sources are generated (`board/*.c`). `board/RUNBOOK.md` now lists exactly what may and may not be claimed, plus the steps left for anyone who has a board later. The video shows the panel only.

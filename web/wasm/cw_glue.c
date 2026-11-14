@@ -23,6 +23,7 @@
 #include "tlm_watch_feature.h"
 #include "tlm_watch_window.h"
 #include "crewwatch_hold.h"
+#include "crewwatch_checkin.h"
 
 #define CW_MAX_F    32
 #define CW_MAX_SRC  8
@@ -209,3 +210,20 @@ int32_t CW_Score(int32_t M, const int16_t *X)
     TINYINFER_MatVec_s8s16(WDec[M], Hidden, Recon, NFeat, NFeat, MultDec[M], (int8_t)ShiftDec[M]);
     return TINYINFER_SqErr_s16(X, Recon, Contrib, NFeat);
 }
+
+/* ---- astronaut self check-in (crewwatch_checkin.c) ---- */
+static CREWWATCH_CheckIn_t       CheckIn;
+static CREWWATCH_CheckInResult_t CheckInRes;
+static uint8_t                   Moods[64];
+
+CREWWATCH_CheckIn_t *CW_CheckInBuf(void) { return &CheckIn; }
+CREWWATCH_CheckInResult_t *CW_CheckInResult(void) { return &CheckInRes; }
+uint8_t *CW_MoodBuf(void) { return Moods; }
+
+/** Evaluate CW_CheckInBuf() against an explicit wearable reading. 1 = ok, 0 = rejected input. */
+int32_t CW_EvalCheckIn(uint16_t WearableHrX10, uint16_t WearableAge)
+{
+    return CREWWATCH_EvaluateCheckIn(&CheckIn, WearableHrX10, WearableAge, &CheckInRes) ? 1 : 0;
+}
+
+uint16_t CW_LowMoodStreak(uint16_t N) { return CREWWATCH_LowMoodStreak(Moods, (N > 64u) ? 64u : N); }

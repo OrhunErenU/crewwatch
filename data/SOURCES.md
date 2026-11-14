@@ -25,6 +25,18 @@ Rule 3: each physiological range/rate links to a source or is labelled **assumpt
 | Fault 1/2 duration | 300 s | **assumption** |
 | Fault 3 (loose electrode): HR output | frozen-ish: last good value + its own small jitter (±0.5 bpm) while real activity rises | **assumption** about electrode failure mode; mechanism (motion artefact/contact loss) is well known |
 
+## Self check-in thresholds (`features/crewwatch_checkin.c`)
+
+| What | Threshold | Source / status |
+|---|---|---|
+| Blood pressure categories | normal < 120/< 80; elevated 120–129/< 80; stage 1 130–139 or 80–89; stage 2 ≥ 140 or ≥ 90; crisis > 180 and/or > 120; higher category wins | Whelton et al., 2017 ACC/AHA Hypertension Guideline, *Hypertension* 71:e13 (doi:10.1161/HYP.0000000000000065); AHA "Top things to know". **Verified** (AHA summary). Crisis advice "rest 5 min, measure again" is AHA patient guidance: **to confirm wording** |
+| Fever | oral ≥ 38.0 °C (100.4 °F) | CDC definition, quoted by Cleveland Clinic / Penn Medicine pages. **Verified** (secondary) |
+| Low blood glucose | level 1 < 70 mg/dL, level 2 < 54 mg/dL; treat with 15 g fast-acting carbohydrate, re-check after 15 min | ADA Standards of Care, Section 6 (Glycemic goals and hypoglycemia). Thresholds **verified** (secondary summaries); "15 g / 15 min" rule **to confirm wording** |
+| Sleep | adults ≥ 7 h per night | Watson et al., AASM/SRS consensus, *Sleep* 38:843, 2015. **Verified** |
+| Low mood | ≤ 2 on a 1–5 self rating; 3 in a row → suggest a private talk | **assumption** (no validated cut-off for a 1-item scale; the tool only reports streaks) |
+| Pulse vs wearable agreement | within 10 bpm or 10 % of the hand count | **assumption** (a 15-s count × 4 is quantised to 4 bpm) |
+| Demo hand count | round(true HR / 4) beats in 15 s, from the original PPG-DaLiA HR before the fault was injected | derived from data, no invented number |
+
 ## Panel numbers (context, not model inputs)
 
 | What | Value | Source / status |
