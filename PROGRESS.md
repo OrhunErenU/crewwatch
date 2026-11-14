@@ -58,8 +58,10 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 3. **Record the 30-s video:** open `web/index.html?demo&team=YourTeamName`, press F11, start Win+Alt+R,
    press F5. The built-in demo runs exactly 30 s with English captions (`docs/VIDEO_SCRIPT.md`). Panel only,
    no board. Upload, make the link public, test it in a private window.
-4. **GitHub:** create the `crewwatch` repo, `git remote add origin …`, push `main`. `vendor/` and
-   `data/raw/` are git-ignored by design. Check the README renders.
+4. ~~GitHub~~ **done:** pushed to https://github.com/OrhunErenU/crewwatch- (public). The repo name ends with
+   a hyphen; renaming it to `crewwatch` in GitHub Settings is safe (GitHub redirects the old URL).
+   `vendor/` and `data/raw/` are git-ignored by design. Decide whether internal files
+   (`ROADMAP.md`, `ASSETS.md`, `.claude/`) should stay public.
 5. **Space Apps page:** paste the rewritten fields; NASA data = DONKI + RAD; SI question from
    `AI_USE.md`; tick "Confirm All Work is Original" only after reading `PRIOR_WORK.md` together.
 6. Submit before **Sun 15 Nov 21:00** (the roadmap's buffer; hard deadline 23:59 local).
