@@ -15,8 +15,9 @@ CrewWatch
 - CrewWatch watches the crew's wearable data on the spacecraft computer. It flags two kinds of
   problem: sensor faults (frozen or silent sensors, which per-channel limit checks cannot see) and
   clear limit violations. It tells the astronaut what to check, in plain words.
-- It runs as integer-only, bit-reproducible C code on a flight-class processor without an FPU, so the
-  same input always gives the same decision on the board and on the ground.
+- It is integer-only, bit-reproducible C code built on an inference engine that was measured on a
+  flight-class processor without an FPU in earlier work. The same input gives the same decision on
+  the ground computer and in the browser (67 388 / 67 388 scores identical).
 
 ## Link to project demo
 TODO (30-second video or ≤ 7 slides, public link)
@@ -53,7 +54,8 @@ wrist sensors, by us or by the baselines. We report that as the next problem, no
 **Benefits.** Works without Earth. Deterministic: the same C code compiled for the ground computer
 (x86-64, gcc) and for the browser (WebAssembly) gives bit-identical scores on all 67 388 scored
 slots of our demo. The panel re-checks this live when it opens. The same inference engine was
-measured bit-exact on a flight-class board during prior work. Integer and float decisions differ on
+measured bit-exact on a flight-class board during prior work. We had no board during the hackathon,
+so CrewWatch itself was not run on hardware; that is the next step. Integer and float decisions differ on
 0.024 % of seconds. Small: 162 B per model table. Updating the model
 means uplinking a new table; it is updated on the ground, not trained in orbit.
 

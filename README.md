@@ -32,7 +32,7 @@ python3 web/export_demo.py
 ## Layout
 `features/` HOLD transform (C, new) + ctypes bridge · `sim/` data prep, crew split, fault injector ·
 `model/` integer Mahalanobis tables · `eval/` three-detector comparison · `explain/` alert text ·
-`web/` panel · `board/` generated cFS table sources · `docs/` submission drafts ·
+`web/` panel · `board/` generated cFS table sources (not run on hardware, see `board/RUNBOOK.md`) · `docs/` submission drafts ·
 `vendor/` (git-ignored) tinyinfer + cfs-m2s150, unmodified.
 
 ## License

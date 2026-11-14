@@ -2,8 +2,8 @@
 
 **Hard limit: 30 seconds** (Space Apps 2026 guide). English, or another language with English subtitles.
 No people under 18 on screen. Any AI-generated image/video needs a visible watermark (we plan none).
-Screen recording of `web/index.html`. If the board is not in the shot, do not imply it is: say
-"same C code, run on the host".
+Screen recording of `web/index.html` only. **No board footage** (no board access, D-23); say
+"same C code on the ground computer and in the browser", never "on the board".
 
 | Time | Picture | Voice (≈ 2.5 words/s) |
 |---|---|---|

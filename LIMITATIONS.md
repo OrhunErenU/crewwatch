@@ -19,12 +19,16 @@
    have wide confidence intervals; event counts are shown next to percentages.
 7. **No medical expert on the team.** Alert text is "check the sensor / note
    how you feel", never a diagnosis.
-8. **Board run not repeated for CrewWatch.** What was measured on the
-   SmartFusion2 board (bit-exact 11/11, 0.64 % of a 1 Hz budget, F=25 model)
-   applies because CrewWatch keeps the same model shape (F ≤ 25, two matvecs
-   + SqErr, int8 weights, int16 activations). **Not shown on the board:**
-   loading the CrewWatch tables, HOLD running on the board, wearable data
-   entering flight software. Next step: board run (`board/RUNBOOK.md`).
+8. **No board run for CrewWatch. The board is no longer available to the
+   team.** What was measured on the SmartFusion2 board during prior work
+   (bit-exact 11/11, 0.64 % of a 1 Hz budget, F=25 model) is quoted for the
+   inference engine and model shape only. CrewWatch keeps that shape (F = 9 ≤ 25,
+   two matvecs + SqErr, int8 weights, int16 activations), so the budget
+   argument carries over, but it was **not re-measured**. Instead, CrewWatch's
+   determinism was checked on two other platforms: x86-64 gcc vs wasm32,
+   67 388 / 67 388 scores identical. **Never shown:** CrewWatch tables loaded
+   on a board, HOLD running on a board, wearable data entering cFS. See
+   `board/RUNBOOK.md`.
 9. **The core is pre-existing work** (see `PRIOR_WORK.md`).
 10. **Model updates happen on the ground**; only the small table is uplinked.
     There is no training in orbit.

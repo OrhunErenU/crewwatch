@@ -37,7 +37,7 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 
 ### P2
 - [x] **WASM bit-exact** — `node tests/test_wasm_bitexact.js` → `PASS -- browser (wasm32) and host (x86-64 gcc) give bit-identical scores on 67388 score slots` (67 136 non-null; negative control: Bias+1 LSB → 15 630 differ). Panel re-runs this live in the browser (45 ms) and shows the count. Build: `bash scripts/install_emsdk.sh` once, then `bash web/wasm/build_wasm.sh` (WSL).
-- [~] Board tables generated (`board/tlm_watch_model_tbl.c`, `..._slow_tbl.c`); `board/RUNBOOK.md` is a draft listing what is still missing (feature table, XFORM_HOLD on a cfs-m2s150 branch, UART replay). Nothing run on the board.
+- [x] ~~Board run~~ — **closed: no board access** (D-23). Table sources are generated (`board/*.c`). `board/RUNBOOK.md` now lists exactly what may and may not be claimed, plus the steps left for anyone who has a board later. The video shows the panel only.
 
 ## Things found on the way (all in DECISIONS.md)
 - **D-13** vendor `DIFF` = counter semantics (unsigned, masked): a 1-LSB drop reads +65535. Fine for counters, wrong for HR. Not used.
