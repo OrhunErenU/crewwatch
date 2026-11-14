@@ -50,8 +50,11 @@ something that looks at "unchanged" and "silent". CrewWatch does that in one det
 with far fewer false alarms on new people. Slow physiological drift is **not** solved at 1 Hz with
 wrist sensors, by us or by the baselines. We report that as the next problem, not as a success.
 
-**Benefits.** Works without Earth. Deterministic: integer and float decisions differ on 0.024 % of
-seconds, and the integer code is the flight code. Small: 162 B per model table. Updating the model
+**Benefits.** Works without Earth. Deterministic: the same C code compiled for the ground computer
+(x86-64, gcc) and for the browser (WebAssembly) gives bit-identical scores on all 67 388 scored
+slots of our demo. The panel re-checks this live when it opens. The same inference engine was
+measured bit-exact on a flight-class board during prior work. Integer and float decisions differ on
+0.024 % of seconds. Small: 162 B per model table. Updating the model
 means uplinking a new table; it is updated on the ground, not trained in orbit.
 
 **Tools.** C (flight inference `tinyinfer`, cFS feature code), Python (ctypes bridge, evaluation, no ML

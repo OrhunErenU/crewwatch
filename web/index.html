@@ -116,6 +116,12 @@ a{color:var(--accent)}
         <div><div class="lbl">CrewWatch</div><div class="val" id="vsCw">—</div></div>
       </div>
     </div>
+    <div class="card" id="det">
+      <h2>Same code, every computer</h2>
+      <div class="small">Recomputing every score in <b>this browser</b> with the flight C code compiled to WebAssembly (4.3 KB, no imports)…</div>
+      <div class="big" id="detBig" style="font-size:20px;margin-top:6px">—</div>
+      <div class="small" id="detTxt"></div>
+    </div>
     <div class="card">
       <h2>Why on board?</h2>
       <div class="small">One-way light time to Earth</div>
@@ -162,6 +168,8 @@ a{color:var(--accent)}
 </footer>
 
 <script src="data.js"></script>
+<script src="crewwatch_wasm.js"></script>
+<script src="crewwatch_engine.js"></script>
 <script>
 (function(){
 "use strict";
@@ -376,6 +384,23 @@ function drawBone(){
 })();
 
 draw(); drawRad(); drawBone();
+
+// ---------- determinism check: rerun the flight C (wasm32) here, compare with host (x86-64 gcc) scores
+setTimeout(function(){
+  const big = document.getElementById('detBig'), txt = document.getElementById('detTxt');
+  try {
+    if (!window.CREWWATCH_WASM_B64 || !window.CrewWatchEngine || !D.wasm_model) throw new Error('wasm files missing');
+    const t0 = performance.now();
+    const eng = CrewWatchEngine.fromBase64(window.CREWWATCH_WASM_B64);
+    let same = 0, tot = 0;
+    D.crew.forEach(c => { const r = eng.replayCrew(D.wasm_model, c); same += r.same; tot += r.same + r.diff; });
+    const ms = Math.round(performance.now() - t0);
+    big.innerHTML = same === tot ? `<span style="color:var(--ok)">${same.toLocaleString('en')} / ${tot.toLocaleString('en')} identical</span>`
+                                 : `<span style="color:var(--bad)">${(tot-same).toLocaleString('en')} differ</span>`;
+    txt.textContent = `Integer scores from this browser (wasm32) vs the ground computer (x86-64, gcc), all 4 crew, ${ms} ms. ` +
+                      `Same input → same decision on every platform: that is what lets an alert be checked and trusted.`;
+  } catch (e) { big.textContent = 'not available'; txt.textContent = String(e.message || e); }
+}, 50);
 })();
 </script>
 </body>

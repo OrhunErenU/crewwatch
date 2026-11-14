@@ -69,11 +69,15 @@ def main():
         tab = m["tables"][str(k)]
         series = {ch[0]: [] for ch in C.CHANNELS}
         score, a, b, c, alerts = [], [], [], [], []
+        arrive, sfast, sslow = [], [], []      # for the in-browser WASM re-computation
         prev_c = False
         last_expl = -999
         det.set_subject(k)      # personal range limits (D-18) -- same as eval
         for tk in C.replay(r, EV.defs_for(m, k), suppress=sup, seed=k):
             ra, rb, rc, sc, contrib = det.step(tk)
+            arrive.append(tk.arrived)
+            sfast.append(det.qm[0].score(tk.vec)[0] if tk.vec is not None else None)
+            sslow.append(det.qm[1].score(tk.wmean)[0] if tk.wmean is not None else None)
             for ci, ch in enumerate(C.CHANNELS):
                 series[ch[0]].append(tk.latched[ci])
             score.append(sc)
@@ -81,7 +85,7 @@ def main():
             b.append(int(rb))
             c.append(int(rc))
             score[-1] = None if sc is None else round(sc, 4)      # ratio to own threshold, > 1 = alarm
-            if rc and (not prev_c or tk.t - last_expl >= 30):
+            if rc and tk.t >= C.BASELINE_S and (not prev_c or tk.t - last_expl >= 30):
                 ratio, _, which, raw, thr = det.last
                 ev = {"score": raw, "threshold": thr, "contrib": contrib, "model": ("fast", "slow")[which],
                       "features": [f["name"] for f in m["features"]],
@@ -96,7 +100,9 @@ def main():
         crew.append({"id": C.CREW[k], "subject": "PPG-DaLiA S%d" % k, "t0": rec["t"][0],
                      "series": series, "score": score, "range": a, "range_hold": b, "crewwatch": c,
                      "label": label, "faults": marks, "alerts": alerts,
-                     "activity": rec["activity"], "baseline": tab["baseline"]})
+                     "activity": rec["activity"], "baseline": tab["baseline"],
+                     "arrive": arrive, "score_fast": sfast, "score_slow": sslow,
+                     "table": {"bias": tab["bias"], "scale": tab["scale"], "shift": tab["shift"]}})
         print("%s: %d ticks, %d CrewWatch alert cards, faults %s" % (
             C.CREW[k], len(score), len(alerts), [(x["type"], x["onset"]) for x in marks]))
 
@@ -110,6 +116,18 @@ def main():
         "results": {"by_type": res["by_type"], "fa": res["fa"], "model": res["model"],
                     "chance": res.get("chance_by_type", {})},
         "fault_types": {str(t): {"key": v[0], "name": v[1], "duration": v[2]} for t, v in FT.TYPES.items()},
+        # everything the WASM build needs to recompute the scores in the browser
+        "wasm_model": {
+            "features": [{"src": d.src, "offset": d.offset, "type": d.type, "xform": d.xform}
+                         for d in C.feature_defs()],
+            "n_sources": C.N_SOURCES,
+            "packets": [{"fmt": C.PKT_FMT[0], "channels": ["hr_x10", "rmssd_x10"]},
+                        {"fmt": C.PKT_FMT[1], "channels": ["act_mg", "temp_x100", "eda_x1000"]}],
+            "models": [{k: m[name]["quant"][k] for k in ("w_enc", "w_dec", "mult_enc", "shift_enc",
+                                                         "mult_dec", "shift_dec")}
+                       for name in ("fast", "slow")],
+            "thresholds": [m["fast"]["threshold_int"], m["slow"]["threshold_int"]],
+        },
     }
     with open(os.path.join(HERE, "data.js"), "w") as f:
         f.write("window.CREWWATCH = ")

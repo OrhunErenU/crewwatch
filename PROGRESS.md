@@ -33,11 +33,11 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 - [x] HOLD in C + host test (15/15) + bridge test (7/7)
 - [x] `explain/` astronaut language, self-test PASS (every sentence carries a number, no diagnosis words)
 - [x] DONKI radiation panel (214 SEP events), bone + sleep reference panels (labelled "not crew data")
-- [ ] `docs/` drafts — in progress
+- [x] `docs/` drafts (DRAFT-marked): `PROJECT_PAGE_DRAFT.md`, `VIDEO_SCRIPT.md` (≤ 30 s), `SLIDES_OUTLINE.md` (≤ 7)
 
 ### P2
-- [ ] WASM — not started
-- [~] Board tables generated (`board/tlm_watch_model_tbl.c`, `..._slow_tbl.c`); RUNBOOK not written
+- [x] **WASM bit-exact** — `node tests/test_wasm_bitexact.js` → `PASS -- browser (wasm32) and host (x86-64 gcc) give bit-identical scores on 67388 score slots` (67 136 non-null; negative control: Bias+1 LSB → 15 630 differ). Panel re-runs this live in the browser (45 ms) and shows the count. Build: `bash scripts/install_emsdk.sh` once, then `bash web/wasm/build_wasm.sh` (WSL).
+- [~] Board tables generated (`board/tlm_watch_model_tbl.c`, `..._slow_tbl.c`); `board/RUNBOOK.md` is a draft listing what is still missing (feature table, XFORM_HOLD on a cfs-m2s150 branch, UART replay). Nothing run on the board.
 
 ## Things found on the way (all in DECISIONS.md)
 - **D-13** vendor `DIFF` = counter semantics (unsigned, masked): a 1-LSB drop reads +65535. Fine for counters, wrong for HR. Not used.
@@ -49,11 +49,13 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 
 ```bash
 cd /mnt/c/Users/orhun/crewwatch
-bash scripts/setup_vendor.sh          # GECTI + 15/15 + 7/7
+bash scripts/setup_vendor.sh          # GECTI + 15/15 + 7/7 + window mean
 python3 sim/fetch_donki.py
 bash scripts/prep_dalia.sh            # needs data/raw/dalia/data.zip (UCI #495)
 python3 model/build_model.py
 python3 eval/evaluate.py --k-events 15
 python3 eval/report.py
 python3 web/export_demo.py
+bash web/wasm/build_wasm.sh           # needs scripts/install_emsdk.sh once
+node tests/test_wasm_bitexact.js      # Windows node or emsdk's node
 ```

@@ -27,5 +27,6 @@ and is open source. We reuse it unchanged and say so.
 | `model/build_model.py` | per-astronaut feature tables + shared Mahalanobis model (adapted from `build_maha.py`) |
 | `eval/` | 3-detector comparison at matched false-alarm budget |
 | `explain/`, `web/`, `docs/` | astronaut-language alerts, offline panel, submission drafts |
+| `web/wasm/cw_glue.c`, `web/wasm/build_wasm.sh`, `web/crewwatch_engine.js`, `tests/test_wasm_bitexact.js` | flight C → wasm32, in-browser recomputation, bit-exact test |
 
 Generated with AI assistance (Claude Code) — see `AI_USE.md`.

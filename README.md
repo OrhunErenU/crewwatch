@@ -15,7 +15,9 @@ sources [`data/SOURCES.md`](data/SOURCES.md)
 
 ## Run the panel
 Open `web/index.html` in any browser. It works offline. Scores are pre-computed by the flight code
-(`web/export_demo.py`). The browser only plays them back.
+(`web/export_demo.py`). On load, the browser also **recomputes every score** with the same flight C
+compiled to WebAssembly (`web/crewwatch_wasm.js`, 4.3 KB) and shows that the two match bit for bit
+(`node tests/test_wasm_bitexact.js` checks the same thing from the command line).
 
 ## Reproduce (WSL/Linux, gcc + python3 + numpy for data prep only)
 ```bash

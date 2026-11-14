@@ -99,10 +99,11 @@ def copy_rec(rec):
 
 # ---------------------------------------------------------------- replay
 class Tick(object):
-    __slots__ = ("t", "vec", "latched", "hold", "age", "wmean")
+    __slots__ = ("t", "vec", "latched", "hold", "age", "wmean", "arrived")
 
-    def __init__(self, t, vec, latched, hold, age, wmean=None):
+    def __init__(self, t, vec, latched, hold, age, wmean=None, arrived=0):
         self.t, self.vec, self.latched, self.hold, self.age = t, vec, latched, hold, age
+        self.arrived = arrived  # bit s set = a packet from source s was latched this tick
         self.wmean = wmean   # flight window mean of the last 64 vectors (None until full)
 
 
@@ -122,6 +123,7 @@ def replay(rec, defs, suppress=None, start=0, stop=None, seed=0, loss=PACKET_LOS
     hold_idx = [i for i, (_, xf) in enumerate(FEATURES) if xf == B.XFORM_HOLD]
     seq = [0, 0]
     for i in range(start, stop):
+        arrived = 0
         for src in range(N_SOURCES):
             if suppress and i in suppress.get(src, ()):
                 continue
@@ -135,6 +137,7 @@ def replay(rec, defs, suppress=None, start=0, stop=None, seed=0, loss=PACKET_LOS
                 pkt = struct.pack(PKT_FMT[1], seq[1], rec["act_mg"][i], rec["temp_x100"][i], rec["eda_x1000"][i])
                 latched[2], latched[3], latched[4] = rec["act_mg"][i], rec["temp_x100"][i], rec["eda_x1000"][i]
             eng.latch(src, pkt)
+            arrived |= 1 << src
         vec = eng.tick()
         wmean = None
         if vec is not None:
@@ -142,4 +145,4 @@ def replay(rec, defs, suppress=None, start=0, stop=None, seed=0, loss=PACKET_LOS
             if win.full():
                 wmean = win.mean()
         ht = eng.hold_ticks()
-        yield Tick(i, vec, list(latched), {FEATURES[j][0]: ht[j] for j in hold_idx}, list(eng.age), wmean)
+        yield Tick(i, vec, list(latched), {FEATURES[j][0]: ht[j] for j in hold_idx}, list(eng.age), wmean, arrived)

@@ -11,7 +11,7 @@ Guide limit if the slides ARE the demo: **≤ 7 slides including title and intro
    Wearable sensor faults → false alarms and wrong conclusions (literature).
 4. **Solution.** Packets → features (level, HOLD = "unchanged for N s", AGE = "silent for N s") →
    integer Mahalanobis in a 162-byte int8 table → alert card in plain words. Same C code on the board
-   and on the ground; integer vs float decisions differ on 0.024 % of seconds.
+   and on the ground; browser (wasm32) vs ground (x86-64): 67 388 / 67 388 scores identical; integer vs float decisions differ on 0.024 % of seconds.
    *(Diagram: wearable → cFS feature code → tinyinfer → alert card)*
 5. **Live demo.** Panel: frozen HR on Crew A (limit check quiet, CrewWatch alerts in 10 s);
    silent strap on Crew D (3 s).
