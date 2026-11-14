@@ -29,17 +29,17 @@ Rule 3: each physiological range/rate links to a source or is labelled **assumpt
 
 | What | Value | Source / status |
 |---|---|---|
-| Earth–Mars one-way light time | ~3 to ~22 min | Standard orbital geometry (closest ~55 M km, farthest ~400 M km); NASA Mars missions pages. **To confirm** exact figure used on the slide |
+| Earth–Mars one-way light time | ~3 to ~22 min (average ~12.5 min; up to ~44 min round trip) | Orbital geometry: 54.6 M km → 3.0 min, ~400 M km → 22.3 min. NASA-affiliated review NTRS 20250000703 quotes up to 44-min round trip. **Verified** (geometry; the panel's 3/12.5/22 min options use these). |
 | Earth–Moon one-way light time | ~1.3 s | 384 400 km / c. Physics. |
 | Cruise dose equivalent (MSL/RAD, Earth→Mars) | 1.84 mSv/day | Zeitlin et al., *Science* 340:1080, 2013. **Verified** (press coverage of the paper) |
 | Mars surface dose equivalent (RAD, Gale crater) | 0.64 mSv/day | Hassler et al., *Science* 343:1244797, 2014. **Verified** (press coverage) |
-| Bone loss (areal BMD) | 1–1.5 %/month (Mir DXA); ISS hip QCT 1.6–2.7 %/month | Review in *Curr Osteoporos Rep* 2013 (doi:10.1007/s11914-013-0136-5); Lang et al. *JBMR* 2004 (UCSF/Baylor). **To confirm** primary values |
+| Bone loss | 1–1.5 %/month areal BMD (Mir DXA, review); ISS hip (QCT, 14 crew, 4–6 months): integral vBMD 1.2–1.5 %/month, trabecular 2.2–2.7 %/month, areal 1.4–1.5 %/month | Review: *Curr Osteoporos Rep* 2013, doi:10.1007/s11914-013-0136-5. Lang et al., "Cortical and trabecular bone mineral loss from the spine and hip in long-duration spaceflight", *J Bone Miner Res* 19(6):1006–12, 2004 (PMID 15125798). **Verified** (abstract). The panel band 1–1.5 %/month matches both. |
 | In-flight sleep | 6.09 h/night ISS, 5.96 h shuttle (8.5 h scheduled) | Barger et al., *Lancet Neurol* 13:904, 2014, doi:10.1016/S1474-4422(14)70122-X. **Verified** (press release) |
-| Activity metric | ENMO = max(0, ‖acc‖ − 1 g), 30-s epoch mean | van Hees et al., *PLoS ONE* 8(4):e61691, 2013. **To confirm** |
+| Activity metric | ENMO = max(0, ‖acc‖ − 1 g), 30-s epoch mean | van Hees et al., "Separating movement and gravity components in an acceleration signal…", *PLoS ONE* 8(4):e61691, 2013, doi:10.1371/journal.pone.0061691. **Verified** (ENMO definition). The 30-s epoch is our choice (assumption). |
 
 ## Positioning (slides)
 
 | Claim | Source |
 |---|---|
-| Earth-Independent Medical Operations (EIMO) | NTRS 20250000009, NTRS 20240001402 (from roadmap §4.1 — **to confirm** titles) |
-| Wearable sensor faults cause false alarms | IEEE Systems Journal 2018, Bayesian-network approach (roadmap §4.1 — **to confirm** citation) |
+| Earth-Independent Medical Operations (EIMO) | NASA HRP ExMC, "Earth-Independent Medical Operations (EIMO) Concept of Operations", Feb 2024, NTRS 20240001402 (650–900+ day Mars mission, no real-time comms in blackouts, no evacuation); 2025 revision NTRS 20250000009 (gradual move of medical decision-making from Earth to the spacecraft). **Verified** (NTRS records). |
+| Wearable sensor faults cause false alarms | Zhang, Liu, Kato, "Threshold Tuning-Based Wearable Sensor Fault Detection for Reliable Medical Monitoring Using Bayesian Network Model", *IEEE Systems Journal* 12(2):1886–1896, 2018. **Verified** (bibliographic record; check IEEE Xplore before quoting). |

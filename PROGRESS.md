@@ -1,6 +1,6 @@
 # PROGRESS — read this first when you wake up
 
-## TL;DR (Sat 14 Nov, ~14:15, Claude Code)
+## TL;DR (Sat 14 Nov, Claude Code) — engineering done, team steps listed below
 
 **P0 done.** Pipeline runs end to end on real data; panel opens offline.
 **The headline result is not the one the roadmap expected. Read `eval/RESULTS.md` → "Reading this table honestly" before writing the pitch.**
@@ -38,6 +38,27 @@ What it cannot claim: catching slow physiological drift at 1 Hz with wrist senso
 ### P2
 - [x] **WASM bit-exact** — `node tests/test_wasm_bitexact.js` → `PASS -- browser (wasm32) and host (x86-64 gcc) give bit-identical scores on 67388 score slots` (67 136 non-null; negative control: Bias+1 LSB → 15 630 differ). Panel re-runs this live in the browser (45 ms) and shows the count. Build: `bash scripts/install_emsdk.sh` once, then `bash web/wasm/build_wasm.sh` (WSL).
 - [x] ~~Board run~~ — **closed: no board access** (D-23). Table sources are generated (`board/*.c`). `board/RUNBOOK.md` now lists exactly what may and may not be claimed, plus the steps left for anyone who has a board later. The video shows the panel only.
+
+## Engineering status: DONE (Sat 14 Nov)
+- `bash scripts/run_all.sh` (WSL) re-runs model → eval → panel → wasm → all tests. A full re-run
+  reproduced `model.json`, `results.json`, `data.js`, `crewwatch.wasm` and both board tables
+  **byte for byte** (sha256 identical).
+- `data/SOURCES.md`: no "to confirm" rows left (EIMO NTRS, IEEE Sys J 2018, van Hees 2013, Lang 2004,
+  Mars light time all checked). A wrong bone-loss figure was corrected (ISS hip trabecular 2.2–2.7 %/month).
+- Panel checked at 1009 px and at phone width (375 px): no horizontal scroll, controls usable.
+
+## What only the team can do (in this order)
+1. **Decide the pitch** around the measured result (D-20, `eval/READING.md`). Don't use the roadmap's
+   original "types 3–4 only the joint model catches" line; the data does not support it.
+2. **Rewrite** `docs/PROJECT_PAGE_DRAFT.md`, `docs/VIDEO_SCRIPT.md`, `docs/SLIDES_OUTLINE.md`,
+   `eval/READING.md` in your own words (they start with `DRAFT — rewrite…`).
+3. **Record the 30-s video** from `web/index.html` (panel only, no board; script has timings). English
+   subtitles if you speak Turkish. Upload, make the link public, test it in a private window.
+4. **GitHub:** create the `crewwatch` repo, `git remote add origin …`, push `main`. `vendor/` and
+   `data/raw/` are git-ignored by design. Check the README renders.
+5. **Space Apps page:** paste the rewritten fields; NASA data = DONKI + RAD; SI question from
+   `AI_USE.md`; tick "Confirm All Work is Original" only after reading `PRIOR_WORK.md` together.
+6. Submit before **Sun 15 Nov 21:00** (the roadmap's buffer; hard deadline 23:59 local).
 
 ## Things found on the way (all in DECISIONS.md)
 - **D-13** vendor `DIFF` = counter semantics (unsigned, masked): a 1-LSB drop reads +65535. Fine for counters, wrong for HR. Not used.
